@@ -52,5 +52,13 @@
     "no-underscore-dangle": "off",
     "import/no-named-as-default": "off",
     "import/no-unassigned-import": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/app/**/*.{ts,tsx}"],
+      "rules": {
+        "react/only-export-components": "off"
+      }
+    }
+  ]
 }
