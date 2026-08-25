@@ -36,3 +36,5 @@ export const DOCS = [
     },
   },
 ] as const;
+
+export type Doc = (typeof DOCS)[number];

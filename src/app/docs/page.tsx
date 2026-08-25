@@ -1,14 +1,5 @@
-import { DOCS } from '@/entities/doc';
+import { DocsPage } from '@/views/docs';
 
 export default function Page() {
-  return (
-    <div>
-      <span>Список документаций</span>
-      <ul>
-        {DOCS.map(({ name }) => (
-          <li key={name}>{name}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <DocsPage />;
 }
