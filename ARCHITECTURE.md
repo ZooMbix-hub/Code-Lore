@@ -26,14 +26,14 @@ src/
 app → views → widgets → features → entities → shared
 ```
 
-| Слой       | Может импортировать из                                          |
-| ---------- | --------------------------------------------------------------- |
-| `app`      | `views`, `widgets`, `features`, `entities`, `shared`            |
-| `views`    | `widgets`, `features`, `entities`, `shared`                     |
-| `widgets`  | `features`, `entities`, `shared`                                |
-| `features` | `entities`, `shared`                                            |
-| `entities` | `shared`                                                        |
-| `shared`   | только внешние пакеты                                           |
+| Слой       | Может импортировать из                               |
+| ---------- | ---------------------------------------------------- |
+| `app`      | `views`, `widgets`, `features`, `entities`, `shared` |
+| `views`    | `widgets`, `features`, `entities`, `shared`          |
+| `widgets`  | `features`, `entities`, `shared`                     |
+| `features` | `entities`, `shared`                                 |
+| `entities` | `shared`                                             |
+| `shared`   | только внешние пакеты                                |
 
 Обратные импорты (например, `shared` → `entities`) запрещены.
 
