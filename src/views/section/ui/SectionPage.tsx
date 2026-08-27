@@ -1,13 +1,14 @@
 import Link from 'next/link';
-import type { Doc } from '@/entities/doc';
+import { getSectionStyles, type Doc } from '@/entities/doc';
 import { ROUTES } from '@/shared/config';
 
 export function SectionPage({ doc }: { doc: Doc }) {
-  const { name, title, description, classes, categories } = doc;
+  const { name, title, description, categories } = doc;
+  const styles = getSectionStyles(name);
 
   return (
     <div className="flex">
-      <main className="mx-auto w-full max-w-6xl flex-1 p-8">
+      <main className="mx-auto w-full max-w-5xl flex-1 p-8">
         <div className="flex min-w-0 flex-col gap-8">
           <nav aria-label="Хлебные крошки" className="font-mono text-xs">
             <ol className="flex items-center gap-1.5">
@@ -28,7 +29,7 @@ export function SectionPage({ doc }: { doc: Doc }) {
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
               <h1
-                className={`bg-linear-to-r bg-clip-text text-5xl font-bold tracking-tight text-balance text-transparent sm:text-6xl ${classes.title}`}
+                className={`bg-linear-to-r bg-clip-text text-5xl font-bold tracking-tight text-balance text-transparent sm:text-6xl ${styles.title}`}
               >
                 {title}
               </h1>
@@ -53,12 +54,12 @@ export function SectionPage({ doc }: { doc: Doc }) {
                         href={ROUTES.article(name, article.slug)}
                         className="group -mx-2.5 flex items-center justify-between gap-3 rounded-lg px-2.5 py-2 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/60"
                       >
-                        <span className={`text-sm font-medium transition-colors ${classes.link}`}>
+                        <span className={`text-sm font-medium transition-colors ${styles.link}`}>
                           {article.title}
                         </span>
                         <span
                           aria-hidden
-                          className={`translate-x-1 text-sm opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 ${classes.text}`}
+                          className={`translate-x-1 text-sm opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 ${styles.text}`}
                         >
                           →
                         </span>

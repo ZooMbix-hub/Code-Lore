@@ -1,6 +1,6 @@
-import { DOCS, DocCard } from '@/entities/doc';
+import { DocCard, type Doc } from '@/entities/doc';
 
-export function DocsPage() {
+export function DocsPage({ docs }: { docs: Doc[] }) {
   return (
     <div className="relative flex flex-1 flex-col">
       <div aria-hidden className="absolute inset-0">
@@ -9,7 +9,6 @@ export function DocsPage() {
       </div>
       <main className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-8 py-16">
         <header className="flex flex-col gap-4">
-          <span className="font-mono text-xs text-zinc-500 dark:text-zinc-500">~/docs</span>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="flex flex-col gap-3">
               <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">Документации</h1>
@@ -18,12 +17,12 @@ export function DocsPage() {
               </p>
             </div>
             <span className="shrink-0 pb-1.5 font-mono text-xs text-zinc-500 dark:text-zinc-500">
-              {DOCS.length} / раздела
+              {docs.length} / раздела
             </span>
           </div>
         </header>
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {DOCS.map((doc) => (
+          {docs.map((doc) => (
             <DocCard key={doc.name} doc={doc} />
           ))}
         </section>

@@ -5,5 +5,5 @@
   "tabWidth": 2,
   "printWidth": 110,
   "sortTailwindcss": true,
-  "ignorePatterns": ["dist"]
+  "ignorePatterns": ["dist", "drizzle"]
 }

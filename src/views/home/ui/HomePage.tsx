@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { DOCS, DocCard } from '@/entities/doc';
+import { DocCard, type Doc } from '@/entities/doc';
 import { ROUTES } from '@/shared/config';
 
-export function HomePage() {
+export function HomePage({ docs }: { docs: Doc[] }) {
   return (
     <div className="relative flex flex-1 flex-col">
       <div aria-hidden className="absolute inset-0">
@@ -40,11 +40,11 @@ export function HomePage() {
           <div className="flex items-end justify-between">
             <h2 className="text-2xl font-semibold tracking-tight">Документации</h2>
             <span className="font-mono text-xs text-zinc-500 dark:text-zinc-500">
-              {DOCS.length} / раздела
+              {docs.length} / раздела
             </span>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {DOCS.map((doc) => (
+            {docs.map((doc) => (
               <DocCard key={doc.name} doc={doc} />
             ))}
           </div>

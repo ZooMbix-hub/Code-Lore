@@ -1,16 +1,17 @@
 import { notFound } from 'next/navigation';
-import { DOCS, getDoc } from '@/entities/doc';
+import { getDoc, getDocs } from '@/entities/doc';
 import { SectionPage } from '@/views/section';
 
 export const dynamicParams = false;
 
-export function generateStaticParams() {
-  return DOCS.map(({ name }) => ({ section: name }));
+export async function generateStaticParams() {
+  const docs = await getDocs();
+  return docs.map(({ name }) => ({ section: name }));
 }
 
 export default async function Page({ params }: PageProps<'/docs/[section]'>) {
   const { section } = await params;
-  const doc = getDoc(section);
+  const doc = await getDoc(section);
 
   if (!doc) notFound();
 

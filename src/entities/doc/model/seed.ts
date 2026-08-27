@@ -1,17 +1,16 @@
-export const DOCS = [
+// oxlint-disable no-console — это CLI-скрипт, вывод в консоль здесь основной интерфейс
+import { db } from '@/shared/config';
+import { articles, categories, sections } from './schema';
+
+/**
+ * Стартовый каталог документации.
+ */
+const SEED = [
   {
     name: 'html',
     title: 'HTML',
     glyph: '</>',
     description: 'Структура и семантика: как браузер читает вашу разметку.',
-    classes: {
-      glyph:
-        'border-orange-600/25 bg-orange-500/10 text-orange-700 dark:border-orange-400/25 dark:bg-orange-400/10 dark:text-orange-300',
-      border: 'hover:border-orange-600/40 dark:hover:border-orange-400/40',
-      link: 'group-hover:text-orange-700 dark:group-hover:text-orange-300',
-      text: 'text-orange-700 dark:text-orange-300',
-      title: 'from-orange-600 to-amber-400 dark:from-orange-400 dark:to-amber-300',
-    },
     categories: [
       {
         title: 'Документ',
@@ -42,14 +41,6 @@ export const DOCS = [
     title: 'CSS',
     glyph: '{ }',
     description: 'Стили, layout и анимации: от селекторов до grid и переменных.',
-    classes: {
-      glyph:
-        'border-sky-600/25 bg-sky-500/10 text-sky-700 dark:border-sky-400/25 dark:bg-sky-400/10 dark:text-sky-300',
-      border: 'hover:border-sky-600/40 dark:hover:border-sky-400/40',
-      link: 'group-hover:text-sky-700 dark:group-hover:text-sky-300',
-      text: 'text-sky-700 dark:text-sky-300',
-      title: 'from-sky-600 to-cyan-400 dark:from-sky-400 dark:to-cyan-300',
-    },
     categories: [
       {
         title: 'Основы',
@@ -81,14 +72,6 @@ export const DOCS = [
     title: 'JS',
     glyph: '=>',
     description: 'Логика и динамика: язык, который оживляет интерфейсы.',
-    classes: {
-      glyph:
-        'border-yellow-600/25 bg-yellow-500/10 text-yellow-700 dark:border-yellow-400/25 dark:bg-yellow-400/10 dark:text-yellow-300',
-      border: 'hover:border-yellow-600/40 dark:hover:border-yellow-400/40',
-      link: 'group-hover:text-yellow-700 dark:group-hover:text-yellow-300',
-      text: 'text-yellow-700 dark:text-yellow-300',
-      title: 'from-yellow-600 to-amber-300 dark:from-yellow-400 dark:to-amber-300',
-    },
     categories: [
       {
         title: 'Основы',
@@ -116,6 +99,55 @@ export const DOCS = [
   },
 ] as const;
 
-export type Doc = (typeof DOCS)[number];
+async function seed() {
+  await db.transaction(async (tx) => {
+    await tx.delete(articles);
+    await tx.delete(categories);
+    await tx.delete(sections);
 
-export const getDoc = (name: string): Doc | undefined => DOCS.find((doc) => doc.name === name);
+    let articleCount = 0;
+
+    for (const [sectionPosition, section] of SEED.entries()) {
+      const [insertedSection] = await tx
+        .insert(sections)
+        .values({
+          name: section.name,
+          title: section.title,
+          glyph: section.glyph,
+          description: section.description,
+          position: sectionPosition,
+        })
+        .returning({ id: sections.id });
+
+      for (const [categoryPosition, category] of section.categories.entries()) {
+        const [insertedCategory] = await tx
+          .insert(categories)
+          .values({
+            sectionId: insertedSection.id,
+            title: category.title,
+            position: categoryPosition,
+          })
+          .returning({ id: categories.id });
+
+        await tx.insert(articles).values(
+          category.articles.map((article, articlePosition) => ({
+            categoryId: insertedCategory.id,
+            slug: article.slug,
+            title: article.title,
+            position: articlePosition,
+          })),
+        );
+        articleCount += category.articles.length;
+      }
+    }
+
+    console.log(`Сид завершён: ${SEED.length} секций, ${articleCount} статей.`);
+  });
+}
+
+seed()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error('Сид не удался:', error);
+    process.exit(1);
+  });

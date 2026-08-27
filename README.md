@@ -8,35 +8,32 @@
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+pnpm db:up       # поднять PostgreSQL в Docker (первый раз скачает образ)
+pnpm db:migrate  # применить миграции
+pnpm db:seed     # наполнить каталог стартовыми данными
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Работа с базой данных
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+PostgreSQL 18 крутится локально в Docker (`docker-compose.yml`), ORM — [Drizzle](https://orm.drizzle.team), миграции — drizzle-kit.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Команда            | Действие                                        |
+| ------------------ | ----------------------------------------------- |
+| `pnpm db:up`       | поднять БД (ждёт healthcheck)                   |
+| `pnpm db:down`     | остановить БД (данные в volume сохраняются)     |
+| `pnpm db:generate` | создать SQL-миграцию из изменений в `schema.ts` |
+| `pnpm db:migrate`  | применить миграции                              |
+| `pnpm db:push`     | быстрый синк схемы в деве, без файлов миграций  |
+| `pnpm db:seed`     | наполнить каталог стартовыми данными            |
+| `pnpm db:studio`   | открыть Drizzle Studio (GUI для БД)             |
 
-## Learn More
+Структура: `src/entities/doc/model/schema.ts` — таблицы, `src/shared/config/db.ts` — клиент (ленивый singleton), `src/entities/doc/api/queries.ts` — запросы, `drizzle/` — файлы миграций (коммитятся).
 
-To learn more about Next.js, take a look at the following resources:
+Подключение задаётся `DATABASE_URL` в `.env.local` (шаблон — `.env.example`). Сборка (`pnpm build`) требует запущенную БД: `generateStaticParams` страниц секций ходит в Postgres.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Продакшен (Vercel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Локальный Docker на проде не нужен — создайте облачную базу (например, [Neon](https://neon.tech), free tier) и добавьте `DATABASE_URL` в env переменные проекта на Vercel. Для Neon используйте pooled-строку подключения (суффикс `-pooler`). При первом деплое выполните на проде `db:migrate` и, при необходимости, `db:seed`.
