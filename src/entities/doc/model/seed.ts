@@ -5,7 +5,17 @@ import { articles, categories, sections } from './schema';
 /**
  * Стартовый каталог документации.
  */
-const SEED = [
+type SeedArticle = { slug: string; title: string; content?: string };
+type SeedCategory = { title: string; articles: SeedArticle[] };
+type SeedSection = {
+  name: string;
+  title: string;
+  glyph: string;
+  description: string;
+  categories: SeedCategory[];
+};
+
+const SEED: SeedSection[] = [
   {
     name: 'html',
     title: 'HTML',
@@ -15,7 +25,34 @@ const SEED = [
       {
         title: 'Документ',
         articles: [
-          { slug: 'structure', title: 'Структура документа' },
+          {
+            slug: 'structure',
+            title: 'Структура документа',
+            content: [
+              'Любая HTML-страница начинается с типовой заготовки:',
+              '',
+              '```html',
+              '<!DOCTYPE html>',
+              '<html lang="ru">',
+              '  <head>',
+              '    <meta charset="UTF-8" />',
+              '    <title>Заголовок вкладки</title>',
+              '  </head>',
+              '  <body>',
+              '    <!-- содержимое страницы -->',
+              '  </body>',
+              '</html>',
+              '```',
+              '',
+              '## Из чего состоит документ',
+              '',
+              '- `<!DOCTYPE html>` — версия разметки;',
+              '- `<head>` — служебная информация: кодировка, заголовок, стили;',
+              '- `<body>` — видимое содержимое.',
+              '',
+              '> Атрибут `lang` помогает браузерам и экранным дикторам определить язык страницы.',
+            ].join('\n'),
+          },
           { slug: 'semantics', title: 'Семантические теги' },
         ],
       },
@@ -53,7 +90,28 @@ const SEED = [
       {
         title: 'Layout',
         articles: [
-          { slug: 'box-model', title: 'Блочная модель' },
+          {
+            slug: 'box-model',
+            title: 'Блочная модель',
+            content: [
+              'Каждый элемент на странице — прямоугольник из четырёх слоёв:',
+              '',
+              '1. **content** — содержимое;',
+              '2. **padding** — внутренние отступы;',
+              '3. **border** — рамка;',
+              '4. **margin** — внешние отступы.',
+              '',
+              '## box-sizing',
+              '',
+              'Чтобы ширина включала padding и border, используйте:',
+              '',
+              '```css',
+              '* {',
+              '  box-sizing: border-box;',
+              '}',
+              '```',
+            ].join('\n'),
+          },
           { slug: 'flexbox', title: 'Flexbox' },
           { slug: 'grid', title: 'Grid Layout' },
         ],
@@ -77,8 +135,27 @@ const SEED = [
         title: 'Основы',
         articles: [
           { slug: 'basics', title: 'Переменные и типы' },
-          { slug: 'functions', title: 'Функции' },
+          {
+            slug: 'functions',
+            title: 'Функции',
+            content: [
+              'Три способа объявить функцию:',
+              '',
+              '```js',
+              '// объявление',
+              'function sum(a, b) {',
+              '  return a + b;',
+              '}',
+              '',
+              '// стрелочная функция',
+              'const sum = (a, b) => a + b;',
+              '```',
+              '',
+              'Функции — объекты первого класса: их можно передавать аргументами и возвращать из других функций.',
+            ].join('\n'),
+          },
           { slug: 'objects', title: 'Объекты и массивы' },
+          { slug: 'test', title: 'Test' },
         ],
       },
       {
@@ -97,7 +174,7 @@ const SEED = [
       },
     ],
   },
-] as const;
+];
 
 async function seed() {
   await db.transaction(async (tx) => {
@@ -134,6 +211,7 @@ async function seed() {
             categoryId: insertedCategory.id,
             slug: article.slug,
             title: article.title,
+            content: article.content ?? '',
             position: articlePosition,
           })),
         );

@@ -52,10 +52,10 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mts,cts,mjs,cjs}": [
       "oxlint --fix",
-      "oxfmt"
+      "oxfmt --no-error-on-unmatched-pattern"
     ],
     "*.{json,jsonc,json5,css,scss,less,md,mdx,yaml,yml,toml,html}": [
-      "oxfmt"
+      "oxfmt --no-error-on-unmatched-pattern"
     ]
   },
   "packageManager": "pnpm@11.8.0"

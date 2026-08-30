@@ -15,7 +15,7 @@ const doc = {
       id: 1,
       title: 'Документ',
       position: 0,
-      articles: [{ id: 1, slug: 'structure', title: 'Структура документа', position: 0 }],
+      articles: [{ id: 1, slug: 'structure', title: 'Структура документа', content: '', position: 0 }],
     },
   ],
 } satisfies Doc;
