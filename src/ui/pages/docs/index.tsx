@@ -1,4 +1,5 @@
-import { DocCard, type Doc } from '@/entities/doc';
+import { DocCard } from '../../components/DocCard';
+import type { Doc } from '@/features/docs';
 
 export function DocsPage({ docs }: { docs: Doc[] }) {
   return (

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { getSectionStyles, type Doc } from '@/entities/doc';
-import { ROUTES } from '@/shared/config';
+import { getSectionStyles, type Doc } from '@/features/docs';
+import { ROUTES } from '@/config/routes';
 
 export function SectionPage({ doc }: { doc: Doc }) {
   const { name, title, description, categories } = doc;

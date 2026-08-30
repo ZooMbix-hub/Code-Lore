@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import type { Doc } from '@/entities/doc';
-import { SectionPage } from '@/views/section';
+import type { Doc } from '@/features/docs';
+import { SectionPage } from '.';
 
 const doc = {
   id: 1,

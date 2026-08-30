@@ -1,7 +1,3 @@
-/**
- * Tailwind-классы секций живут в коде, а не в БД: сканер Tailwind
- * собирает классы из исходников, строки из базы он не увидит.
- */
 export type SectionStyles = {
   glyph: string;
   border: string;
@@ -19,7 +15,7 @@ const DEFAULT_STYLES: SectionStyles = {
   title: 'from-zinc-600 to-zinc-400 dark:from-zinc-400 dark:to-zinc-300',
 };
 
-export const SECTION_STYLES: Record<string, SectionStyles> = {
+const SECTION_STYLES: Record<string, SectionStyles> = {
   html: {
     glyph:
       'border-orange-600/25 bg-orange-500/10 text-orange-700 dark:border-orange-400/25 dark:bg-orange-400/10 dark:text-orange-300',
@@ -46,5 +42,4 @@ export const SECTION_STYLES: Record<string, SectionStyles> = {
   },
 };
 
-/** Стили секции по её имени; для новой секции без описания — нейтральные */
 export const getSectionStyles = (name: string): SectionStyles => SECTION_STYLES[name] ?? DEFAULT_STYLES;

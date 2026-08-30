@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { getDoc, getDocs } from '@/entities/doc';
-import { SectionPage } from '@/views/section';
+import { getDoc, getDocs } from '@/features/docs';
+import { SectionPage } from '@/ui/pages/section';
 
 export const dynamicParams = false;
 

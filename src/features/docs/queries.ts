@@ -1,8 +1,8 @@
-import { asc } from 'drizzle-orm';
 import { cache } from 'react';
-import { db } from '@/shared/config';
-import { articles, categories, sections } from '../model/schema';
-import type { Doc, DocArticle, DocCategory } from '../model/types';
+import { asc } from 'drizzle-orm';
+import { db } from '@/db/client';
+import { articles, categories, sections } from '@/db/schema';
+import type { Doc, DocArticle, DocCategory } from './types';
 
 export async function fetchDocs(): Promise<Doc[]> {
   const [sectionRows, categoryRows, articleRows] = await Promise.all([

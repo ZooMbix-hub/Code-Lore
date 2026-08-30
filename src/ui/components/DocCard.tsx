@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { ROUTES } from '@/shared/config';
-import { getSectionStyles } from '../model';
-import type { Doc } from '../model';
+import { ROUTES } from '@/config/routes';
+import { getSectionStyles } from '@/features/docs';
+import type { Doc } from '@/features/docs';
 
 export const DocCard = ({ doc }: { doc: Doc }) => {
   const { name, title, glyph, description } = doc;

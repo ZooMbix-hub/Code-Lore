@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ROUTES } from '@/shared/config';
+import { ROUTES } from '@/config/routes';
 
 export const Header = () => {
   return (

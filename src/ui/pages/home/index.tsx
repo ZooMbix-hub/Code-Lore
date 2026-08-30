@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { DocCard, type Doc } from '@/entities/doc';
-import { ROUTES } from '@/shared/config';
+import { DocCard } from '../../components/DocCard';
+import type { Doc } from '@/features/docs';
+import { ROUTES } from '@/config/routes';
 
 export function HomePage({ docs }: { docs: Doc[] }) {
   return (

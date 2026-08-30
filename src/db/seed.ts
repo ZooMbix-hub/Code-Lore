@@ -1,10 +1,6 @@
-// oxlint-disable no-console — это CLI-скрипт, вывод в консоль здесь основной интерфейс
-import { db } from '@/shared/config';
+import { db } from './client';
 import { articles, categories, sections } from './schema';
 
-/**
- * Стартовый каталог документации.
- */
 type SeedArticle = { slug: string; title: string; content?: string };
 type SeedCategory = { title: string; articles: SeedArticle[] };
 type SeedSection = {
@@ -219,6 +215,7 @@ async function seed() {
       }
     }
 
+    // oxlint-disable-next-line no-console
     console.log(`Сид завершён: ${SEED.length} секций, ${articleCount} статей.`);
   });
 }
@@ -226,6 +223,7 @@ async function seed() {
 seed()
   .then(() => process.exit(0))
   .catch((error) => {
+    // oxlint-disable-next-line no-console
     console.error('Сид не удался:', error);
     process.exit(1);
   });

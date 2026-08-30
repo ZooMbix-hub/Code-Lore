@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import type { Doc } from '@/entities/doc';
-import { HomePage } from '@/views/home';
+import type { Doc } from '@/features/docs';
+import { HomePage } from '.';
 
 const docs: Doc[] = [
   {

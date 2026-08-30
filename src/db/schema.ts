@@ -1,6 +1,6 @@
 import { integer, pgTable, serial, text, uniqueIndex } from 'drizzle-orm/pg-core';
 
-/** Секции документации: html, css, js */
+/** Секции документации */
 export const sections = pgTable('sections', {
   id: serial('id').primaryKey(),
   name: text('name').notNull().unique(),
@@ -10,7 +10,7 @@ export const sections = pgTable('sections', {
   position: integer('position').notNull(),
 });
 
-/** Категории внутри секции: «Документ», «Основы», «Layout»... */
+/** Категории внутри секции */
 export const categories = pgTable('categories', {
   id: serial('id').primaryKey(),
   sectionId: integer('section_id')
@@ -20,7 +20,7 @@ export const categories = pgTable('categories', {
   position: integer('position').notNull(),
 });
 
-/** Статьи внутри категории: /docs/[section]/[article] */
+/** Статьи внутри категории */
 export const articles = pgTable(
   'articles',
   {
