@@ -1,9 +1,5 @@
-export default async function Page({ params }: PageProps<'/docs/[section]/[article]'>) {
-  const { section, article } = await params;
+import { ArticlePage } from '@/ui/pages/article';
 
-  return (
-    <div>
-      Page {section} {article}
-    </div>
-  );
+export default async function Page() {
+  return <ArticlePage />;
 }

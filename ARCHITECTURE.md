@@ -17,7 +17,7 @@ src/
 ├─ features/       # Вертикальные домены: запросы, типы и логика одного домена вместе.
 │                  # Пример: features/docs — каталог документации
 ├─ ui/
-│   ├─ primitives/ # Базовые generic-компоненты без знания о домене (кнопки, инпуты)
+│   ├─ primitives/ # Стилизованные обёртки над Base UI (@base-ui/react): Select, ...
 │   ├─ components/ # Составные компоненты: Header, DocCard
 │   └─ pages/      # Композиции страниц по роутам: pages/home, pages/docs, pages/section.
 │                  # Presentational-компоненты с props + тесты рядом

@@ -49,23 +49,15 @@ const SEED: SeedSection[] = [
               '> Атрибут `lang` помогает браузерам и экранным дикторам определить язык страницы.',
             ].join('\n'),
           },
-          { slug: 'semantics', title: 'Семантические теги' },
         ],
       },
       {
         title: 'Контент',
-        articles: [
-          { slug: 'text', title: 'Текст и списки' },
-          { slug: 'links', title: 'Ссылки и изображения' },
-          { slug: 'tables', title: 'Таблицы' },
-        ],
+        articles: [{ slug: 'text', title: 'Текст и списки' }],
       },
       {
         title: 'Формы и медиа',
-        articles: [
-          { slug: 'forms', title: 'Формы' },
-          { slug: 'media', title: 'Медиа и встраивание' },
-        ],
+        articles: [{ slug: 'forms', title: 'Формы' }],
       },
     ],
   },
@@ -77,11 +69,7 @@ const SEED: SeedSection[] = [
     categories: [
       {
         title: 'Основы',
-        articles: [
-          { slug: 'syntax', title: 'Синтаксис и подключение' },
-          { slug: 'selectors', title: 'Селекторы' },
-          { slug: 'cascade', title: 'Каскад и специфичность' },
-        ],
+        articles: [{ slug: 'syntax', title: 'Синтаксис и подключение' }],
       },
       {
         title: 'Layout',
@@ -108,16 +96,11 @@ const SEED: SeedSection[] = [
               '```',
             ].join('\n'),
           },
-          { slug: 'flexbox', title: 'Flexbox' },
-          { slug: 'grid', title: 'Grid Layout' },
         ],
       },
       {
         title: 'Динамика',
-        articles: [
-          { slug: 'variables', title: 'CSS-переменные' },
-          { slug: 'animations', title: 'Переходы и анимации' },
-        ],
+        articles: [{ slug: 'variables', title: 'CSS-переменные' }],
       },
     ],
   },
@@ -130,7 +113,6 @@ const SEED: SeedSection[] = [
       {
         title: 'Основы',
         articles: [
-          { slug: 'basics', title: 'Переменные и типы' },
           {
             slug: 'functions',
             title: 'Функции',
@@ -150,22 +132,6 @@ const SEED: SeedSection[] = [
               'Функции — объекты первого класса: их можно передавать аргументами и возвращать из других функций.',
             ].join('\n'),
           },
-          { slug: 'objects', title: 'Объекты и массивы' },
-          { slug: 'test', title: 'Test' },
-        ],
-      },
-      {
-        title: 'Браузер',
-        articles: [
-          { slug: 'dom', title: 'DOM и события' },
-          { slug: 'async', title: 'Асинхронность' },
-        ],
-      },
-      {
-        title: 'Практики',
-        articles: [
-          { slug: 'errors', title: 'Ошибки и отладка' },
-          { slug: 'modules', title: 'Модули' },
         ],
       },
     ],
