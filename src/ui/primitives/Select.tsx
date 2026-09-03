@@ -55,7 +55,7 @@ export function Select({ name, label, value, onChange, options, placeholder }: S
               >
                 <BaseSelect.ItemText className="truncate">{option.label}</BaseSelect.ItemText>
                 <BaseSelect.ItemIndicator className="font-mono text-xs text-zinc-400 dark:text-zinc-500">
-                  ✓
+                  <CheckIcon />
                 </BaseSelect.ItemIndicator>
               </BaseSelect.Item>
             ))}
@@ -63,5 +63,21 @@ export function Select({ name, label, value, onChange, options, placeholder }: S
         </BaseSelect.Positioner>
       </BaseSelect.Portal>
     </BaseSelect.Root>
+  );
+}
+
+function CheckIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
+    </svg>
   );
 }

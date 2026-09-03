@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { asc } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { articles, categories, sections } from '@/db/schema';
-import type { Doc, DocArticle, DocCategory } from './types';
+import type { ArticleView, Doc, DocArticle, DocCategory } from './types';
 
 export async function fetchDocs(): Promise<Doc[]> {
   const [sectionRows, categoryRows, articleRows] = await Promise.all([
@@ -43,4 +43,22 @@ export const getDocs = cache(fetchDocs);
 export const getDoc = cache(async (name: string): Promise<Doc | undefined> => {
   const docs = await getDocs();
   return docs.find((doc) => doc.name === name);
+});
+
+export const getArticle = cache(async (section: string, slug: string): Promise<ArticleView | undefined> => {
+  const doc = await getDoc(section);
+  if (!doc) {
+    return undefined;
+  }
+
+  const _articles = doc.categories.flatMap((category) => category.articles);
+  const index = _articles.findIndex((article) => article.slug === slug);
+  const article = _articles[index];
+
+  return {
+    docTitle: doc.title,
+    article: article,
+    prev: _articles[index - 1] ?? null,
+    next: _articles[index + 1] ?? null,
+  };
 });

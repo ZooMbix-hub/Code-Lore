@@ -9,3 +9,10 @@ export type DocCategory = Omit<CategoryRow, 'sectionId'> & {
 export type Doc = SectionRow & {
   categories: DocCategory[];
 };
+
+export type ArticleView = {
+  docTitle: string;
+  article: DocArticle;
+  prev: DocArticle | null;
+  next: DocArticle | null;
+};
