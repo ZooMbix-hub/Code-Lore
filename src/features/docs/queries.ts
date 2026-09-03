@@ -56,7 +56,12 @@ export const getArticle = cache(async (section: string, slug: string): Promise<A
   const article = _articles[index];
 
   return {
-    docTitle: doc.title,
+    doc: {
+      name: doc.name,
+      title: doc.title,
+      categories: doc.categories,
+      glyph: doc.glyph,
+    },
     article: article,
     prev: _articles[index - 1] ?? null,
     next: _articles[index + 1] ?? null,

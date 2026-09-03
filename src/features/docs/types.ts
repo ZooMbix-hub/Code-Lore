@@ -11,7 +11,12 @@ export type Doc = SectionRow & {
 };
 
 export type ArticleView = {
-  docTitle: string;
+  doc: {
+    name: string;
+    title: string;
+    categories: DocCategory[];
+    glyph: string;
+  };
   article: DocArticle;
   prev: DocArticle | null;
   next: DocArticle | null;

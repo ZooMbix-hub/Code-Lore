@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { section, article } = await params;
   const view = await getArticle(section, article);
 
-  return { title: view ? `${view.article.title} — ${view.docTitle}` : 'Статья не найдена' };
+  return { title: view ? `${view.article.title} — ${view.doc.title}` : 'Статья не найдена' };
 }
 
 export default async function Page({ params }: PageProps<'/docs/[section]/[article]'>) {
