@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { getDocs } from '@/features/docs';
-import { ArticlePage } from '@/ui/pages/article';
-import { getArticle } from '@/features/docs/queries';
 import { notFound } from 'next/navigation';
+import { getDocs, getArticle } from '@/features/docs';
+import { renderMarkdown } from '@/lib/markdown';
+import { ArticlePage } from '@/ui/pages/article';
 
 export const dynamicParams = false;
 
@@ -13,20 +13,22 @@ export async function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<'/docs/[section]/[article]'>): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<Path>): Promise<Metadata> {
   const { section, article } = await params;
   const view = await getArticle(section, article);
 
   return { title: view ? `${view.article.title} — ${view.doc.title}` : 'Статья не найдена' };
 }
 
-export default async function Page({ params }: PageProps<'/docs/[section]/[article]'>) {
+export default async function Page({ params }: PageProps<Path>) {
   const { section, article } = await params;
   const view = await getArticle(section, article);
 
   if (!view) notFound();
 
-  return <ArticlePage view={view} />;
+  const content = await renderMarkdown(view.article.content);
+
+  return <ArticlePage view={view} content={content} />;
 }
+
+type Path = '/docs/[section]/[article]';

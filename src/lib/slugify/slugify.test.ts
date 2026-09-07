@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { slugify } from '.';
+import { slugify } from './slugify';
 
 test('транслитерирует кириллицу', () => {
   expect(slugify('Блочная модель')).toBe('blochnaya-model');

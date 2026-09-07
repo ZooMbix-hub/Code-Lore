@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { ROUTES } from '@/config/routes';
 import type { ArticleView } from '@/features/docs';
+import type { RenderedMarkdown } from '@/lib/markdown';
 import { ArticleSidebar } from './ArticleSidebar';
 import { ArticleToc } from './ArticleToc';
 
 interface ArticlePageProps {
   view: ArticleView;
+  content: RenderedMarkdown;
 }
 
 const WORDS_PER_MINUTE = 180;
@@ -15,8 +17,9 @@ function getReadingTime(markdown: string): number {
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 }
 
-export function ArticlePage({ view }: ArticlePageProps) {
+export function ArticlePage({ view, content }: ArticlePageProps) {
   const { doc, article } = view;
+  const { html } = content;
 
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-8">
@@ -59,7 +62,7 @@ export function ArticlePage({ view }: ArticlePageProps) {
             </div>
           </div>
 
-          <article className="article-prose" /* dangerouslySetInnerHTML={{ __html: html }} */ />
+          <article className="article-prose" dangerouslySetInnerHTML={{ __html: html }} />
         </div>
       </main>
 
