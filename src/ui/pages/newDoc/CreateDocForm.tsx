@@ -6,7 +6,7 @@ import { createArticleAction, type CreateArticleSectionOption } from '@/features
 import { slugify } from '@/lib/slugify';
 import { Field, Input, Select } from '@/ui/primitives';
 
-const MarkdownEditor = dynamic(() => import('../MarkdownEditor').then((mod) => mod.MarkdownEditor), {
+const MarkdownEditor = dynamic(() => import('./MarkdownEditor').then((mod) => mod.MarkdownEditor), {
   ssr: false,
   loading: () => <div className="h-64 animate-pulse bg-zinc-100 dark:bg-zinc-900" />,
 });

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import type { Doc } from '@/features/docs';
 import { NewDocPage } from './index';
 
-vi.mock('@/ui/components/CreateDocForm/CreateDocForm', () => ({
+vi.mock('./CreateDocForm.tsx', () => ({
   CreateDocForm: () => <div data-testid="create-doc-form" />,
 }));
 

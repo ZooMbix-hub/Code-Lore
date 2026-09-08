@@ -1,6 +1,8 @@
 'use client';
 
-import { Input as BaseInput, type InputProps } from '@base-ui/react/input';
+import { Input as BaseInput, type InputProps as BaseInputProps } from '@base-ui/react/input';
+
+export type InputProps = BaseInputProps;
 
 export function Input({ className, ...props }: InputProps) {
   return (

@@ -1,3 +1,3 @@
 export { Field, type FieldControlProps } from './Field';
-export { Input } from './Input';
+export { Input, type InputProps } from './Input';
 export { Select, type SelectOption } from './Select';

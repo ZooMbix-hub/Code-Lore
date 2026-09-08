@@ -19,7 +19,12 @@ type SelectProps = {
 
 export function Select({ name, label, value, onChange, options, placeholder }: SelectProps) {
   return (
-    <BaseSelect.Root name={name} value={value || null} onValueChange={(next) => onChange(next ?? '')}>
+    <BaseSelect.Root
+      name={name}
+      items={options}
+      value={value || null}
+      onValueChange={(next) => onChange(next ?? '')}
+    >
       <BaseSelect.Trigger
         aria-label={label}
         className="group flex w-full items-center justify-between gap-2 rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-left text-sm transition-colors focus:border-zinc-500 focus:outline-none data-popup-open:border-zinc-500 dark:border-zinc-700 dark:focus:border-zinc-400 dark:data-popup-open:border-zinc-400"

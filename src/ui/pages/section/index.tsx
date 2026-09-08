@@ -26,6 +26,7 @@ export function SectionPage({ doc }: { doc: Doc }) {
               <li className={`text-foreground font-semibold`}>{name}</li>
             </ol>
           </nav>
+
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
               <h1
@@ -36,6 +37,7 @@ export function SectionPage({ doc }: { doc: Doc }) {
             </div>
             <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">{description}</p>
           </div>
+
           <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((category, categoryIndex) => (
               <section key={category.title} className="flex flex-col gap-1">

@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { DocCard } from '../../components/DocCard';
 import type { Doc } from '@/features/docs';
 import { ROUTES } from '@/config/routes';
+import { DocCard } from '../../components/DocCard';
 
 export function HomePage({ docs }: { docs: Doc[] }) {
   return (
@@ -10,6 +10,7 @@ export function HomePage({ docs }: { docs: Doc[] }) {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-zinc-200)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-zinc-200)_1px,transparent_1px)] mask-[radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] bg-size-[56px_56px] dark:bg-[linear-gradient(to_right,var(--color-zinc-800)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-zinc-800)_1px,transparent_1px)]" />
         <div className="absolute -top-32 left-1/2 h-72 w-160 -translate-x-1/2 rounded-full bg-linear-to-r from-orange-500/25 via-sky-500/25 to-yellow-400/25 blur-3xl" />
       </div>
+
       <main className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col items-center gap-20 px-8 py-20">
         <section className="flex flex-col items-center gap-6 text-center">
           <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ROUTES } from '@/config/routes';
 import type { Doc } from '@/features/docs';
 import { type CreateArticleSectionOption } from '@/features/create-article';
-import { CreateDocForm } from '@/ui/components/CreateDocForm/CreateDocForm';
+import { CreateDocForm } from './CreateDocForm';
 
 export function NewDocPage({ docs }: { docs: Doc[] }) {
   const sections: CreateArticleSectionOption[] = docs.map(({ name, title, categories }) => ({
@@ -30,6 +30,7 @@ export function NewDocPage({ docs }: { docs: Doc[] }) {
             <li className="text-foreground font-semibold">new</li>
           </ol>
         </nav>
+
         <div className="flex flex-col gap-3">
           <h1 className="text-foreground bg-linear-to-rbg-clip-text text-4xl font-bold tracking-tight">
             Новая статья
@@ -38,6 +39,7 @@ export function NewDocPage({ docs }: { docs: Doc[] }) {
             Заполните карточку файла — текст сохранится в Markdown и появится в каталоге.
           </p>
         </div>
+
         <CreateDocForm sections={sections} />
       </div>
     </main>

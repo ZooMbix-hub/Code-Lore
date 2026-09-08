@@ -10,6 +10,7 @@ export function DocsPage({ docs }: { docs: Doc[] }) {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-zinc-200)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-zinc-200)_1px,transparent_1px)] mask-[radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] bg-size-[56px_56px] dark:bg-[linear-gradient(to_right,var(--color-zinc-800)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-zinc-800)_1px,transparent_1px)]" />
         <div className="absolute -top-32 left-1/2 h-72 w-160 -translate-x-1/2 rounded-full bg-linear-to-r from-orange-500/15 via-sky-500/15 to-yellow-400/15 blur-3xl" />
       </div>
+
       <main className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-8 py-16">
         <header className="flex flex-col gap-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
