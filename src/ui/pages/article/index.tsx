@@ -22,7 +22,7 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
   const { html, headings } = content;
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-8">
+    <div className="flex w-full flex-1 justify-center gap-8 px-20">
       <ArticleSidebar doc={doc} currentArticle={article.slug} />
 
       <main className="min-w-0 flex-1 py-10">

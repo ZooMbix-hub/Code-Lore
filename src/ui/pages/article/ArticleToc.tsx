@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { cn } from 'cn';
 import type { RenderedMarkdown } from '@/lib/markdown';
 
@@ -9,9 +9,44 @@ interface ArticleTocProps {
 }
 
 export const ArticleToc = ({ headings }: ArticleTocProps) => {
-  const _headings = headings ? [...headings.values()] : [];
+  const _headings = useMemo(() => (headings ? [...headings.values()] : []), [headings]);
+  const [activeId, setActiveId] = useState(_headings.length ? _headings[0].id : '');
 
-  const [activeId] = useState(_headings.length ? _headings[0].id : '');
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') {
+      return undefined;
+    }
+
+    const visible = new Set<string>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            visible.add(entry.target.id);
+          } else {
+            visible.delete(entry.target.id);
+          }
+        }
+
+        const current = _headings.find(({ id }) => visible.has(id));
+        if (current) {
+          setActiveId(current.id);
+        }
+      },
+      { rootMargin: '-73px 0px -66% 0px' },
+    );
+
+    _headings.forEach(({ id }) => {
+      const element = document.getElementById(id);
+
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [_headings]);
 
   return (
     <nav className="sticky top-14.25 h-[calc(100dvh-57px)] w-64 py-8">
