@@ -1,3 +1,42 @@
-export const ArticleToc = () => {
-  return <nav>Toc</nav>;
+'use client';
+
+import { useState } from 'react';
+import { cn } from 'cn';
+import type { RenderedMarkdown } from '@/lib/markdown';
+
+interface ArticleTocProps {
+  headings: RenderedMarkdown['headings'];
+}
+
+export const ArticleToc = ({ headings }: ArticleTocProps) => {
+  const _headings = headings ? [...headings.values()] : [];
+
+  const [activeId] = useState(_headings.length ? _headings[0].id : '');
+
+  return (
+    <nav className="sticky top-14.25 h-[calc(100dvh-57px)] w-64 py-8">
+      <ul className="flex flex-col">
+        {_headings.map(({ id, text, depth }) => (
+          <li
+            key={id}
+            className={cn(
+              'flex border-l border-zinc-200 dark:border-zinc-800',
+              id === activeId && 'border-zinc-200 dark:border-zinc-200',
+            )}
+          >
+            <a
+              href={`#${id}`}
+              className={cn(
+                'text-zinc-60 py-1.5 text-sm dark:text-zinc-400',
+                id === activeId && 'font-semibold dark:text-zinc-100',
+              )}
+              style={{ paddingLeft: depth * 12 }}
+            >
+              {text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
 };

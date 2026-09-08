@@ -19,7 +19,7 @@ function getReadingTime(markdown: string): number {
 
 export function ArticlePage({ view, content }: ArticlePageProps) {
   const { doc, article } = view;
-  const { html } = content;
+  const { html, headings } = content;
 
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-8">
@@ -66,7 +66,7 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
         </div>
       </main>
 
-      <ArticleToc />
+      <ArticleToc headings={headings} />
     </div>
   );
 }

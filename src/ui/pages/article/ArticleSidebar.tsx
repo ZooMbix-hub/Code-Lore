@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import clsx from 'clsx';
+import { cn } from 'cn';
 import { ROUTES } from '@/config/routes';
 import { getSectionStyles, type ArticleView } from '@/features/docs';
 
@@ -13,7 +13,7 @@ export const ArticleSidebar = ({ doc, currentArticle }: ArticleSidebarProps) => 
   const styles = getSectionStyles(name);
 
   return (
-    <aside className="sticky top-14.25 hidden h-[calc(100dvh-57px)] w-64 shrink-0 self-start overflow-y-auto border-r border-zinc-200/60 py-8 pr-6 lg:block dark:border-zinc-800/60">
+    <aside className="sticky top-14.25 h-[calc(100dvh-57px)] w-64 border-r border-zinc-200/60 py-8 pr-6 lg:block dark:border-zinc-800/60">
       <div className="flex items-center gap-2.5 pb-6">
         <span className={`rounded-md border px-1.5 py-0.5 font-mono text-xs font-semibold ${styles.glyph}`}>
           {glyph}
@@ -34,7 +34,7 @@ export const ArticleSidebar = ({ doc, currentArticle }: ArticleSidebarProps) => 
                 <li key={article.id}>
                   <Link
                     href={ROUTES.article(name, article.slug)}
-                    className={clsx(
+                    className={cn(
                       'flex py-1.5 pl-3 text-sm',
                       article.slug === currentArticle
                         ? `font-medium ${styles.text}`
