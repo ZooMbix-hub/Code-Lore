@@ -4,7 +4,7 @@ import { useActionState, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { createArticleAction, type CreateArticleSectionOption } from '@/features/create-article';
 import { slugify } from '@/lib/slugify';
-import { Field, Input, Select } from '@/ui/primitives';
+import { Dialog, Field, Input, Select, type SelectOption } from '@/ui/primitives';
 
 const MarkdownEditor = dynamic(() => import('./MarkdownEditor').then((mod) => mod.MarkdownEditor), {
   ssr: false,
@@ -21,12 +21,27 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [content, setContent] = useState('');
+  const [modalView, setModalView] = useState<'section' | 'category' | null>(null);
 
+  const sectionsOptions: SelectOption[] = [
+    ...sections.map((section) => ({ value: section.name, label: section.title })),
+    { value: 'CREATE_NEW', label: '+ Новая секция', variant: 'action' },
+  ];
   const categories = sections.find(({ name }) => name === sectionName)?.categories ?? [];
+  const categoriesOptions: SelectOption[] = [
+    ...categories.map((category) => ({ value: String(category.id), label: category.title })),
+    { value: 'CREATE_NEW', label: '+ Новая категория', variant: 'action' },
+  ];
   const fileName = `${slugify(slug || title) || 'new-article'}.md`;
 
   return (
     <div className="overflow-hidden rounded-xl border border-zinc-300 bg-zinc-50/50 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/50">
+      <Dialog
+        open={Boolean(modalView)}
+        onOpenChange={() => setModalView(null)}
+        title={modalView === 'category' ? 'Добавление категории' : 'Добавление секции'}
+      />
+
       <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
         <div aria-hidden className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-full bg-rose-400/80" />
@@ -40,17 +55,21 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
       </div>
 
       <form action={formAction} className="flex flex-col gap-6 p-6">
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-6">
           <Field label="Секция" error={errors.section}>
             <Select
               name="section"
               label="Секция"
               value={sectionName}
               onChange={(next) => {
-                setSectionName(next);
-                setCategoryId('');
+                if (next === 'CREATE_NEW') {
+                  setModalView('section');
+                } else {
+                  setSectionName(next);
+                  setCategoryId('');
+                }
               }}
-              options={sections.map((section) => ({ value: section.name, label: section.title }))}
+              options={sectionsOptions}
             />
           </Field>
 
@@ -58,10 +77,16 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
             <Select
               name="categoryId"
               label="Категория"
-              value={categoryId}
-              onChange={setCategoryId}
               placeholder="Выберите категорию"
-              options={categories.map((category) => ({ value: String(category.id), label: category.title }))}
+              value={categoryId}
+              onChange={(next) => {
+                if (next === 'CREATE_NEW') {
+                  setModalView('category');
+                } else {
+                  setCategoryId(next);
+                }
+              }}
+              options={categoriesOptions}
             />
           </Field>
         </div>
@@ -96,12 +121,10 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
         </div>
 
         <Field label="Текст · Markdown" error={errors.content}>
-          <>
-            <input type="hidden" name="content" value={content} />
-            <div className="overflow-hidden rounded-lg border border-zinc-300 dark:border-zinc-700">
-              <MarkdownEditor onChange={setContent} />
-            </div>
-          </>
+          <input type="hidden" name="content" value={content} />
+          <div className="overflow-hidden rounded-lg border border-zinc-300 dark:border-zinc-700">
+            <MarkdownEditor onChange={setContent} />
+          </div>
         </Field>
 
         <div className="flex items-center justify-between gap-4 border-t border-zinc-200 pt-4 dark:border-zinc-800">

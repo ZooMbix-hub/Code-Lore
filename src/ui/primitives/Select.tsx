@@ -6,6 +6,7 @@ export type SelectOption = {
   value: string;
   label: string;
   disabled?: boolean;
+  variant?: 'action';
 };
 
 type SelectProps = {
@@ -56,7 +57,11 @@ export function Select({ name, label, value, onChange, options, placeholder }: S
                 key={option.value}
                 value={option.value}
                 disabled={option.disabled}
-                className="flex cursor-default items-center justify-between gap-2 px-3 py-1.5 text-sm text-zinc-700 outline-none select-none data-highlighted:bg-zinc-100 data-highlighted:text-zinc-900 dark:text-zinc-300 dark:data-highlighted:bg-zinc-800 dark:data-highlighted:text-zinc-100"
+                className={`flex cursor-default items-center justify-between gap-2 px-3 py-1.5 text-sm outline-none select-none data-highlighted:bg-zinc-100 data-highlighted:text-zinc-900 dark:data-highlighted:bg-zinc-800 dark:data-highlighted:text-zinc-100 ${
+                  option.variant === 'action'
+                    ? 'mt-1 border-t border-zinc-200 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400'
+                    : 'text-zinc-700 dark:text-zinc-300'
+                }`}
               >
                 <BaseSelect.ItemText className="truncate">{option.label}</BaseSelect.ItemText>
                 <BaseSelect.ItemIndicator className="font-mono text-xs text-zinc-400 dark:text-zinc-500">

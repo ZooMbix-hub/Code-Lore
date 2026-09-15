@@ -3,7 +3,7 @@ import { ROUTES } from '@/config/routes';
 
 export const Header = () => {
   return (
-    <header className="bg-background/80 sticky top-0 z-10 border-b border-zinc-200/60 dark:border-zinc-800/60">
+    <header className="bg-background/80 sticky top-0 z-10 border-b border-zinc-200/60 backdrop-blur-sm dark:border-zinc-800/60">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-8 py-4">
         <Link href={ROUTES.main} className="flex items-center gap-2 font-semibold tracking-tight">
           <span aria-hidden className="font-mono text-sm text-zinc-500 dark:text-zinc-400">
