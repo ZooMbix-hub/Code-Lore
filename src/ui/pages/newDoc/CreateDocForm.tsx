@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic';
 import { createArticleAction, type CreateArticleSectionOption } from '@/features/create-article';
 import { slugify } from '@/lib/slugify';
 import { Dialog, Field, Input, Select, type SelectOption } from '@/ui/primitives';
+import { CreateSectionForm } from './CreateSectionForm';
+import { CreateCategoryForm } from './CreateCategoryForm';
 
 const MarkdownEditor = dynamic(() => import('./MarkdownEditor').then((mod) => mod.MarkdownEditor), {
   ssr: false,
@@ -40,7 +42,9 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
         open={Boolean(modalView)}
         onOpenChange={() => setModalView(null)}
         title={modalView === 'category' ? 'Добавление категории' : 'Добавление секции'}
-      />
+      >
+        {modalView === 'category' ? <CreateCategoryForm /> : <CreateSectionForm />}
+      </Dialog>
 
       <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
         <div aria-hidden className="flex items-center gap-1.5">

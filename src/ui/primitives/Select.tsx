@@ -2,21 +2,21 @@
 
 import { Select as BaseSelect } from '@base-ui/react/select';
 
-export type SelectOption = {
+export interface SelectOption {
   value: string;
   label: string;
   disabled?: boolean;
   variant?: 'action';
-};
+}
 
-type SelectProps = {
+export interface SelectProps {
   name?: string;
   label: string;
   value: string;
   onChange: (value: string) => void;
   options: SelectOption[];
   placeholder?: string;
-};
+}
 
 export function Select({ name, label, value, onChange, options, placeholder }: SelectProps) {
   return (

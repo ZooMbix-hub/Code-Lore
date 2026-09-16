@@ -3,17 +3,17 @@
 import { useId, type ReactNode } from 'react';
 import { Field as BaseField } from '@base-ui/react/field';
 
-export type FieldControlProps = {
+interface FieldControlProps {
   id: string;
   'aria-invalid': true | undefined;
   'aria-describedby': string | undefined;
-};
+}
 
-type FieldProps = {
+export interface FieldProps {
   label: string;
   error?: string;
   children: ReactNode | ((controlProps: FieldControlProps) => ReactNode);
-};
+}
 
 export function Field({ label, error, children }: FieldProps) {
   const id = useId();
