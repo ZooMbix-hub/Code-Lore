@@ -5,7 +5,8 @@ import { type CreateArticleSectionOption } from '@/features/create-article';
 import { CreateDocForm } from './CreateDocForm';
 
 export function NewDocPage({ docs }: { docs: Doc[] }) {
-  const sections: CreateArticleSectionOption[] = docs.map(({ name, title, categories }) => ({
+  const sections: CreateArticleSectionOption[] = docs.map(({ id, name, title, categories }) => ({
+    id,
     name,
     title,
     categories: categories.map(({ id, title: categoryTitle }) => ({ id, title: categoryTitle })),

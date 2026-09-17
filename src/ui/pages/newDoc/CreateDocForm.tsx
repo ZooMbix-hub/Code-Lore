@@ -29,21 +29,27 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
     ...sections.map((section) => ({ value: section.name, label: section.title })),
     { value: 'CREATE_NEW', label: '+ Новая секция', variant: 'action' },
   ];
-  const categories = sections.find(({ name }) => name === sectionName)?.categories ?? [];
+  const currentSection = sections.find(({ name }) => name === sectionName);
+  const categories = currentSection?.categories ?? [];
   const categoriesOptions: SelectOption[] = [
     ...categories.map((category) => ({ value: String(category.id), label: category.title })),
     { value: 'CREATE_NEW', label: '+ Новая категория', variant: 'action' },
   ];
   const fileName = `${slugify(slug || title) || 'new-article'}.md`;
+  const closeModal = () => setModalView(null);
 
   return (
     <div className="overflow-hidden rounded-xl border border-zinc-300 bg-zinc-50/50 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/50">
       <Dialog
         open={Boolean(modalView)}
-        onOpenChange={() => setModalView(null)}
+        onOpenChange={closeModal}
         title={modalView === 'category' ? 'Добавление категории' : 'Добавление секции'}
       >
-        {modalView === 'category' ? <CreateCategoryForm /> : <CreateSectionForm />}
+        {modalView === 'category' ? (
+          <CreateCategoryForm onCloseModal={closeModal} sectionId={currentSection?.id ?? 0} />
+        ) : (
+          <CreateSectionForm onCloseModal={closeModal} />
+        )}
       </Dialog>
 
       <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">

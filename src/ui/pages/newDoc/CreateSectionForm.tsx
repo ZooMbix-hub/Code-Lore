@@ -1,6 +1,10 @@
 import { Button, Field, Input } from '@/ui/primitives';
 
-export function CreateSectionForm() {
+interface CreateSectionFormProps {
+  onCloseModal: () => void;
+}
+
+export function CreateSectionForm({ onCloseModal }: CreateSectionFormProps) {
   return (
     <div className="flex flex-col gap-y-4">
       <Field label="Название">
@@ -17,7 +21,9 @@ export function CreateSectionForm() {
         )}
       </Field>
       <div className="flex justify-end gap-2">
-        <Button variant="outline">Отмена</Button>
+        <Button variant="outline" onClick={onCloseModal}>
+          Отмена
+        </Button>
         <Button>Создать</Button>
       </div>
     </div>

@@ -5,6 +5,7 @@ export type CreateArticleFormState = {
 };
 
 export type CreateArticleSectionOption = {
+  id: number;
   name: string;
   title: string;
   categories: { id: number; title: string }[];
