@@ -1,6 +1,4 @@
-type CreateCategoryFieldName = 'categoryName' | 'form';
-
 export type CreateCategoryFormState = {
-  errors?: Partial<Record<CreateCategoryFieldName, string>>;
+  error?: string;
   success?: boolean;
 };

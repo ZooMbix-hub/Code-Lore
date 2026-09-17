@@ -13,18 +13,8 @@ export async function createCategoryActions(
 ): Promise<CreateCategoryFormState> {
   const categoryName = String(formData.get('categoryName') ?? '').trim();
 
-  const errors: CreateCategoryFormState['errors'] = {};
-
   if (!categoryName) {
-    errors.categoryName = 'Введите название категории';
-  }
-
-  if (!Number.isInteger(sectionId) || sectionId <= 0) {
-    errors.form = 'Сначала выберите секцию';
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return { errors };
+    return { error: 'Введите название категории' };
   }
 
   const [existing] = await db
@@ -33,7 +23,7 @@ export async function createCategoryActions(
     .where(and(eq(categories.sectionId, sectionId), eq(categories.title, categoryName)));
 
   if (existing) {
-    return { errors: { categoryName: 'Такая категория уже есть в этой секции' } };
+    return { error: 'Такая категория уже есть в этой секции' };
   }
 
   const [max] = await db

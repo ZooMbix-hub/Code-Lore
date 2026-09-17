@@ -9,7 +9,7 @@ interface CreateCategoryFormProps {
 
 export function CreateCategoryForm({ sectionId, onCloseModal }: CreateCategoryFormProps) {
   const createCategoryWithSection = createCategoryActions.bind(null, sectionId);
-  const [{ errors, success }, formAction, isPending] = useActionState(createCategoryWithSection, {});
+  const [{ error, success }, formAction, isPending] = useActionState(createCategoryWithSection, {});
   const [categoryName, setCategoryName] = useState('');
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export function CreateCategoryForm({ sectionId, onCloseModal }: CreateCategoryFo
 
   return (
     <form action={formAction} className="flex flex-col gap-y-4">
-      <Field label="Название" error={errors?.categoryName}>
+      <Field label="Название" error={error}>
         {(control) => (
           <Input
             {...control}
@@ -33,7 +33,6 @@ export function CreateCategoryForm({ sectionId, onCloseModal }: CreateCategoryFo
           />
         )}
       </Field>
-      {errors?.form && <p className="text-sm text-red-600 dark:text-red-400">{errors.form}</p>}
       <div className="flex justify-end gap-2">
         <Button variant="outline" onClick={onCloseModal}>
           Отмена

@@ -18,7 +18,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
     errors: {},
   });
 
-  const [sectionName, setSectionName] = useState(sections[0]?.name ?? '');
+  const [sectionName, setSectionName] = useState(sections[0].name);
   const [categoryId, setCategoryId] = useState('');
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
@@ -29,8 +29,8 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
     ...sections.map((section) => ({ value: section.name, label: section.title })),
     { value: 'CREATE_NEW', label: '+ Новая секция', variant: 'action' },
   ];
-  const currentSection = sections.find(({ name }) => name === sectionName);
-  const categories = currentSection?.categories ?? [];
+  const currentSection = sections.find(({ name }) => name === sectionName)!;
+  const categories = currentSection.categories;
   const categoriesOptions: SelectOption[] = [
     ...categories.map((category) => ({ value: String(category.id), label: category.title })),
     { value: 'CREATE_NEW', label: '+ Новая категория', variant: 'action' },
@@ -46,7 +46,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
         title={modalView === 'category' ? 'Добавление категории' : 'Добавление секции'}
       >
         {modalView === 'category' ? (
-          <CreateCategoryForm onCloseModal={closeModal} sectionId={currentSection?.id ?? 0} />
+          <CreateCategoryForm onCloseModal={closeModal} sectionId={currentSection.id} />
         ) : (
           <CreateSectionForm onCloseModal={closeModal} />
         )}
