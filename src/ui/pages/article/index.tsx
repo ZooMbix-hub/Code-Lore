@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ROUTES } from '@/config/routes';
 import type { ArticleView } from '@/features/docs';
+import { formatDate } from '@/lib/date';
 import type { RenderedMarkdown } from '@/lib/markdown';
 import { ArticleSidebar } from './ArticleSidebar';
 import { ArticleToc } from './ArticleToc';
@@ -11,12 +12,6 @@ interface ArticlePageProps {
 }
 
 const WORDS_PER_MINUTE = 180;
-
-const updatedAtFormat = new Intl.DateTimeFormat('ru-RU', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-});
 
 function getReadingTime(markdown: string): number {
   const words = markdown.split(/\s+/u).filter(Boolean).length;
@@ -66,9 +61,7 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
             <div className="flex justify-end gap-x-4 border-t border-zinc-200 pt-4 font-mono text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
               <span>~{getReadingTime(article.content)} мин чтения</span>
               <div>
-                <time dateTime={article.updatedAt.toISOString()}>
-                  {updatedAtFormat.format(article.updatedAt)}
-                </time>
+                <time dateTime={article.updatedAt.toISOString()}>{formatDate(article.updatedAt)}</time>
               </div>
             </div>
           </div>
