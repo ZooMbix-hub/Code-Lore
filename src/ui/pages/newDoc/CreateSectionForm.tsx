@@ -1,4 +1,4 @@
-import { Button, Field, Input } from '@/ui/primitives';
+import { Button, Field, Input, Textarea } from '@/ui/primitives';
 
 interface CreateSectionFormProps {
   onCloseModal: () => void;
@@ -6,13 +6,13 @@ interface CreateSectionFormProps {
 
 export function CreateSectionForm({ onCloseModal }: CreateSectionFormProps) {
   return (
-    <div className="flex flex-col gap-y-4">
+    <form className="flex flex-col gap-y-4">
       <Field label="Название">
         {(control) => (
           <Input
             {...control}
             type="text"
-            name="name"
+            name="sectionName"
             value={''}
             onChange={(event) => console.log(event.target.value)}
             placeholder="Введите секцию"
@@ -20,12 +20,31 @@ export function CreateSectionForm({ onCloseModal }: CreateSectionFormProps) {
           />
         )}
       </Field>
+
+      <Field label="Глиф · необязательно">
+        {(control) => (
+          <Input
+            {...control}
+            type="text"
+            name="glyph"
+            value={''}
+            onChange={(event) => console.log(event.target.value)}
+            placeholder="Введите глиф"
+            className="font-mono"
+          />
+        )}
+      </Field>
+
+      <Field label="Описание">
+        {(control) => <Textarea {...control} name="description" rows={4} placeholder="Введите описание" />}
+      </Field>
+
       <div className="flex justify-end gap-2">
         <Button variant="outline" onClick={onCloseModal}>
           Отмена
         </Button>
         <Button>Создать</Button>
       </div>
-    </div>
+    </form>
   );
 }

@@ -23,7 +23,8 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [content, setContent] = useState('');
-  const [modalView, setModalView] = useState<'section' | 'category' | null>(null);
+  const [modalView, setModalView] = useState<'section' | 'category'>('section');
+  const [modalOpen, setModalOpen] = useState(false);
 
   const sectionsOptions: SelectOption[] = [
     ...sections.map((section) => ({ value: section.name, label: section.title })),
@@ -36,12 +37,16 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
     { value: 'CREATE_NEW', label: '+ Новая категория', variant: 'action' },
   ];
   const fileName = `${slugify(slug || title) || 'new-article'}.md`;
-  const closeModal = () => setModalView(null);
+  const closeModal = () => setModalOpen(false);
+  const openModal = (view: 'section' | 'category') => {
+    setModalView(view);
+    setModalOpen(true);
+  };
 
   return (
     <div className="overflow-hidden rounded-xl border border-zinc-300 bg-zinc-50/50 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/50">
       <Dialog
-        open={Boolean(modalView)}
+        open={modalOpen}
         onOpenChange={closeModal}
         title={modalView === 'category' ? 'Добавление категории' : 'Добавление секции'}
       >
@@ -73,7 +78,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
               value={sectionName}
               onChange={(next) => {
                 if (next === 'CREATE_NEW') {
-                  setModalView('section');
+                  openModal('section');
                 } else {
                   setSectionName(next);
                   setCategoryId('');
@@ -91,7 +96,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
               value={categoryId}
               onChange={(next) => {
                 if (next === 'CREATE_NEW') {
-                  setModalView('category');
+                  openModal('category');
                 } else {
                   setCategoryId(next);
                 }
