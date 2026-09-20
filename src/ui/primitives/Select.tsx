@@ -28,7 +28,7 @@ export function Select({ name, label, value, onChange, options, placeholder }: S
     >
       <BaseSelect.Trigger
         aria-label={label}
-        className="group flex w-full items-center justify-between gap-2 rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-left text-sm transition-colors focus:border-zinc-500 focus:outline-none data-popup-open:border-zinc-500 dark:border-zinc-700 dark:focus:border-zinc-400 dark:data-popup-open:border-zinc-400"
+        className="group flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-left text-sm transition-colors focus:border-zinc-500 focus:outline-none data-popup-open:border-zinc-500 dark:border-zinc-700 dark:focus:border-zinc-400 dark:data-popup-open:border-zinc-400"
       >
         <BaseSelect.Value
           placeholder={placeholder}
@@ -57,7 +57,7 @@ export function Select({ name, label, value, onChange, options, placeholder }: S
                 key={option.value}
                 value={option.value}
                 disabled={option.disabled}
-                className={`flex cursor-default items-center justify-between gap-2 px-3 py-1.5 text-sm outline-none select-none data-highlighted:bg-zinc-100 data-highlighted:text-zinc-900 dark:data-highlighted:bg-zinc-800 dark:data-highlighted:text-zinc-100 ${
+                className={`flex cursor-pointer items-center justify-between gap-2 px-3 py-1.5 text-sm outline-none select-none data-highlighted:bg-zinc-100 data-highlighted:text-zinc-900 dark:data-highlighted:bg-zinc-800 dark:data-highlighted:text-zinc-100 ${
                   option.variant === 'action'
                     ? 'mt-1 border-t border-zinc-200 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400'
                     : 'text-zinc-700 dark:text-zinc-300'

@@ -317,12 +317,11 @@ async function seed() {
           .returning({ id: categories.id });
 
         await tx.insert(articles).values(
-          category.articles.map((article, articlePosition) => ({
+          category.articles.map((article) => ({
             categoryId: insertedCategory.id,
             slug: article.slug,
             title: article.title,
             content: article.content ?? '',
-            position: articlePosition,
           })),
         );
         articleCount += category.articles.length;

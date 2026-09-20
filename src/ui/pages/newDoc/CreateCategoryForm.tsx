@@ -1,4 +1,4 @@
-import { useEffect, useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { createCategoryActions } from '@/features/create-category';
 import { Button, Field, Input } from '@/ui/primitives';
 
@@ -33,11 +33,14 @@ export function CreateCategoryForm({ sectionId, onCloseModal }: CreateCategoryFo
           />
         )}
       </Field>
+
       <div className="flex justify-end gap-2">
         <Button variant="outline" onClick={onCloseModal}>
           Отмена
         </Button>
-        <Button type="submit">{isPending ? 'Создание...' : 'Создать'}</Button>
+        <Button type="submit" loading={isPending}>
+          Создать
+        </Button>
       </div>
     </form>
   );

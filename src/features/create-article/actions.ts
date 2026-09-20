@@ -1,6 +1,6 @@
 'use server';
 
-import { and, eq, sql } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { db } from '@/db/client';
@@ -58,16 +58,11 @@ export async function createArticleAction(
     return { errors };
   }
 
-  const [max] = await db
-    .select({ value: sql<number>`coalesce(max(${articles.position}), -1)` })
-    .from(articles)
-    .where(eq(articles.categoryId, place.categoryId));
-
   let created;
   try {
     [created] = await db
       .insert(articles)
-      .values({ categoryId: place.categoryId, slug, title, content, position: Number(max?.value ?? -1) + 1 })
+      .values({ categoryId: place.categoryId, slug, title, content })
       .returning({ slug: articles.slug });
   } catch (error) {
     if (isUniqueViolation(error)) {

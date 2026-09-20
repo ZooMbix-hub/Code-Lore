@@ -28,7 +28,6 @@ export const articles = pgTable(
     slug: text('slug').notNull(),
     title: text('title').notNull(),
     content: text('content').notNull().default(''),
-    position: integer('position').notNull(),
   },
   (table) => [uniqueIndex('articles_category_slug_key').on(table.categoryId, table.slug)],
 );

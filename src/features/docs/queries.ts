@@ -8,7 +8,7 @@ export async function fetchDocs(): Promise<Doc[]> {
   const [sectionRows, categoryRows, articleRows] = await Promise.all([
     db.select().from(sections).orderBy(asc(sections.position)),
     db.select().from(categories).orderBy(asc(categories.position)),
-    db.select().from(articles).orderBy(asc(articles.position)),
+    db.select().from(articles).orderBy(asc(articles.id)),
   ]);
 
   const articlesByCategory = new Map<number, DocArticle[]>();
