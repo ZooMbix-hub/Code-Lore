@@ -14,10 +14,11 @@ export const Header = () => {
         <ul className="flex gap-6 text-sm text-zinc-600 dark:text-zinc-400">
           <li>
             <Link href={ROUTES.docs} className="hover:text-foreground transition-colors">
-              Docs
+              Документации
             </Link>
           </li>
-          <li>About</li>
+          <li>Статьи</li>
+          <li>Практика</li>
         </ul>
       </nav>
     </header>

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Doc } from '@/features/docs';
 import { ROUTES } from '@/config/routes';
 import { DocCard } from '../../components/DocCard';
+import { AllDocsCard } from '../../components/AllDocsCard';
 
 export function HomePage({ docs }: { docs: Doc[] }) {
   return (
@@ -46,9 +47,10 @@ export function HomePage({ docs }: { docs: Doc[] }) {
             </span>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {docs.map((doc) => (
+            {docs.slice(0, 4).map((doc) => (
               <DocCard key={doc.name} doc={doc} />
             ))}
+            <AllDocsCard />
           </div>
         </section>
       </main>

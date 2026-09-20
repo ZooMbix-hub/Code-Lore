@@ -1,4 +1,4 @@
-import { integer, pgTable, serial, text, uniqueIndex } from 'drizzle-orm/pg-core';
+import { integer, pgTable, serial, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core';
 
 export const sections = pgTable('sections', {
   id: serial('id').primaryKey(),
@@ -28,6 +28,11 @@ export const articles = pgTable(
     slug: text('slug').notNull(),
     title: text('title').notNull(),
     content: text('content').notNull().default(''),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow()
+      .$onUpdate(() => new Date()),
   },
   (table) => [uniqueIndex('articles_category_slug_key').on(table.categoryId, table.slug)],
 );

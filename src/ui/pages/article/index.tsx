@@ -12,6 +12,12 @@ interface ArticlePageProps {
 
 const WORDS_PER_MINUTE = 180;
 
+const updatedAtFormat = new Intl.DateTimeFormat('ru-RU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
 function getReadingTime(markdown: string): number {
   const words = markdown.split(/\s+/u).filter(Boolean).length;
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
@@ -57,8 +63,13 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
 
           <div className="flex flex-col gap-4">
             <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">{article.title}</h1>
-            <div className="flex justify-end border-t border-zinc-200 pt-4 font-mono text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
+            <div className="flex justify-end gap-x-4 border-t border-zinc-200 pt-4 font-mono text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
               <span>~{getReadingTime(article.content)} мин чтения</span>
+              <div>
+                <time dateTime={article.updatedAt.toISOString()}>
+                  {updatedAtFormat.format(article.updatedAt)}
+                </time>
+              </div>
             </div>
           </div>
 
