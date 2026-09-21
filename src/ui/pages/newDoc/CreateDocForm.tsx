@@ -137,7 +137,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
 
         <Field label="Текст · Markdown" error={errors.content}>
           <input type="hidden" name="content" value={content} />
-          <div className="overflow-hidden rounded-lg border border-zinc-300 dark:border-zinc-700">
+          <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto rounded-lg border border-zinc-300 dark:border-zinc-700">
             <MarkdownEditor onChange={setContent} />
           </div>
         </Field>

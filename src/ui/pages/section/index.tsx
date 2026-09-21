@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getSectionStyles, type Doc } from '@/features/docs';
 import { ROUTES } from '@/config/routes';
+import { Breadcrumbs } from '@/ui/components/Breadcrumbs';
 
 export function SectionPage({ doc }: { doc: Doc }) {
   const { name, title, description, categories } = doc;
@@ -10,22 +11,7 @@ export function SectionPage({ doc }: { doc: Doc }) {
     <div className="flex">
       <main className="mx-auto w-full max-w-5xl flex-1 p-8">
         <div className="flex min-w-0 flex-col gap-8">
-          <nav aria-label="Хлебные крошки" className="font-mono text-xs">
-            <ol className="flex items-center gap-1.5">
-              <li>
-                <Link
-                  href={ROUTES.docs}
-                  className="hover:text-foreground text-zinc-500 transition-colors dark:text-zinc-500"
-                >
-                  ~/docs
-                </Link>
-              </li>
-              <li aria-hidden className="text-zinc-500 dark:text-zinc-500">
-                /
-              </li>
-              <li className={`text-foreground font-semibold`}>{name}</li>
-            </ol>
-          </nav>
+          <Breadcrumbs items={[{ label: '~/docs', href: ROUTES.docs }, { label: name }]} />
 
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">

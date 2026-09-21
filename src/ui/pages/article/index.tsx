@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import { ROUTES } from '@/config/routes';
 import type { ArticleView } from '@/features/docs';
 import { formatDate } from '@/lib/date';
 import type { RenderedMarkdown } from '@/lib/markdown';
+import { Breadcrumbs } from '@/ui/components/Breadcrumbs';
 import { ArticleSidebar } from './ArticleSidebar';
 import { ArticleToc } from './ArticleToc';
 
@@ -28,33 +28,13 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
 
       <main className="min-w-0 flex-1 py-10">
         <div className="mx-auto flex max-w-3xl min-w-0 flex-col gap-6">
-          <nav aria-label="Хлебные крошки" className="font-mono text-xs">
-            <ol className="flex flex-wrap items-center gap-1.5">
-              <li>
-                <Link
-                  href={ROUTES.docs}
-                  className="hover:text-foreground text-zinc-500 transition-colors dark:text-zinc-500"
-                >
-                  ~/docs
-                </Link>
-              </li>
-              <li aria-hidden className="text-zinc-500 dark:text-zinc-500">
-                /
-              </li>
-              <li>
-                <Link
-                  href={ROUTES.section(doc.name)}
-                  className="hover:text-foreground text-zinc-500 transition-colors dark:text-zinc-500"
-                >
-                  {doc.name}
-                </Link>
-              </li>
-              <li aria-hidden className="text-zinc-500 dark:text-zinc-500">
-                /
-              </li>
-              <li className="text-foreground font-semibold">{article.slug}</li>
-            </ol>
-          </nav>
+          <Breadcrumbs
+            items={[
+              { label: '~/docs', href: ROUTES.docs },
+              { label: doc.name, href: ROUTES.section(doc.name) },
+              { label: article.slug },
+            ]}
+          />
 
           <div className="flex flex-col gap-4">
             <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">{article.title}</h1>
