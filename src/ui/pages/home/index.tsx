@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Doc } from '@/features/docs';
 import { ROUTES } from '@/config/routes';
+import { Button } from '@/ui/primitives';
 import { DocCard } from '../../components/DocCard';
 import { AllDocsCard } from '../../components/AllDocsCard';
 
@@ -25,18 +26,23 @@ export function HomePage({ docs }: { docs: Doc[] }) {
             примерами и без воды.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href={ROUTES.docs}
-              className="bg-foreground text-background rounded-lg px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85"
+            <Button
+              variant="primary"
+              nativeButton={false}
+              className="px-5 py-2.5"
+              render={<Link href={ROUTES.docs} />}
             >
               Открыть документацию
-            </Link>
-            <Link
-              href={ROUTES.section('html')}
-              className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium transition-colors hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/60"
+            </Button>
+            <Button
+              variant="outline"
+              nativeButton={false}
+              className="px-5 py-2.5"
+              endIcon="→"
+              render={<Link href={ROUTES.section('html')} />}
             >
-              Начать с HTML <span aria-hidden>→</span>
-            </Link>
+              Начать с HTML
+            </Button>
           </div>
         </section>
         <section className="flex w-full flex-col gap-6">

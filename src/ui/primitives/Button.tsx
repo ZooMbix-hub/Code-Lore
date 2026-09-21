@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { cn } from 'cn';
 import { Button as BaseButton, type ButtonProps as BaseButtonProps } from '@base-ui/react/button';
 import { Loader } from './Loader';
@@ -7,6 +8,8 @@ import { Loader } from './Loader';
 export interface ButtonProps extends BaseButtonProps {
   variant?: 'primary' | 'outline';
   loading?: boolean;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
 }
 
 const variantClasses = {
@@ -20,6 +23,8 @@ export function Button({
   variant = 'primary',
   loading = false,
   disabled,
+  startIcon,
+  endIcon,
   children,
   className,
   ...rest
@@ -36,7 +41,17 @@ export function Button({
       {...rest}
     >
       {loading && <Loader />}
+      {startIcon && (
+        <span aria-hidden className="inline-flex shrink-0">
+          {startIcon}
+        </span>
+      )}
       {children}
+      {endIcon && (
+        <span aria-hidden className="inline-flex shrink-0">
+          {endIcon}
+        </span>
+      )}
     </BaseButton>
   );
 }

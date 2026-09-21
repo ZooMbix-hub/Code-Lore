@@ -4,7 +4,7 @@ import { useActionState, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { createArticleAction, type CreateArticleSectionOption } from '@/features/create-article';
 import { slugify } from '@/lib/slugify';
-import { Dialog, Field, Input, Select, type SelectOption } from '@/ui/primitives';
+import { Button, Dialog, Field, Input, Select, type SelectOption } from '@/ui/primitives';
 import { CreateSectionForm } from './CreateSectionForm';
 import { CreateCategoryForm } from './CreateCategoryForm';
 
@@ -115,12 +115,12 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
                 name="title"
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
-                placeholder="Структура документа"
+                placeholder="Например: Как работает flexbox"
               />
             )}
           </Field>
 
-          <Field label="Slug · необязательно" error={errors.slug}>
+          <Field label="Slug" error={errors.slug}>
             {(control) => (
               <Input
                 {...control}
@@ -128,7 +128,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
                 name="slug"
                 value={slug}
                 onChange={(event) => setSlug(event.target.value)}
-                placeholder="structure — пусто: из заголовка"
+                placeholder="kak-rabotaet-flexbox"
                 className="font-mono"
               />
             )}
@@ -144,13 +144,9 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
 
         <div className="flex items-center justify-between gap-4 border-t border-zinc-200 pt-4 dark:border-zinc-800">
           {errors.form && <p className={'text-sm text-red-600 dark:text-red-400'}>{errors.form}</p>}
-          <button
-            type="submit"
-            disabled={isPending}
-            className="ml-auto rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-50 transition-opacity hover:opacity-90 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900"
-          >
-            {isPending ? 'Публикация…' : 'Опубликовать'}
-          </button>
+          <Button type="submit" loading={isPending} className={'ml-auto'}>
+            {'Опубликовать'}
+          </Button>
         </div>
       </form>
     </div>
