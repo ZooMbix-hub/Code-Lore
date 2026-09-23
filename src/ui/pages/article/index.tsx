@@ -3,6 +3,7 @@ import type { ArticleView } from '@/features/docs';
 import { formatDate } from '@/lib/date';
 import type { RenderedMarkdown } from '@/lib/markdown';
 import { Breadcrumbs } from '@/ui/components/Breadcrumbs';
+import { ArticleNavButton } from './ArticleNavButton';
 import { ArticleSidebar } from './ArticleSidebar';
 import { ArticleToc } from './ArticleToc';
 
@@ -19,7 +20,7 @@ function getReadingTime(markdown: string): number {
 }
 
 export function ArticlePage({ view, content }: ArticlePageProps) {
-  const { doc, article } = view;
+  const { doc, article, next, prev } = view;
   const { html, headings } = content;
 
   return (
@@ -47,6 +48,26 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
           </div>
 
           <article className="article-prose" dangerouslySetInnerHTML={{ __html: html }} />
+          <div className="grid gap-5 sm:grid-cols-2">
+            {prev && (
+              <ArticleNavButton
+                direction="prev"
+                label="Назад"
+                title={prev.title}
+                subtitle={prev.category}
+                href={ROUTES.article(doc.name, prev.slug)}
+              />
+            )}
+            {next && (
+              <ArticleNavButton
+                direction="next"
+                label="Дальше"
+                title={next.title}
+                subtitle={next.category}
+                href={ROUTES.article(doc.name, next.slug)}
+              />
+            )}
+          </div>
         </div>
       </main>
 

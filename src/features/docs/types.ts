@@ -10,6 +10,12 @@ export type Doc = SectionRow & {
   categories: DocCategory[];
 };
 
+export type AdjacentArticle = {
+  title: string;
+  slug: string;
+  category: string;
+};
+
 export type ArticleView = {
   doc: {
     name: string;
@@ -18,6 +24,6 @@ export type ArticleView = {
     glyph: string;
   };
   article: DocArticle;
-  prev: DocArticle | null;
-  next: DocArticle | null;
+  prev: AdjacentArticle | null;
+  next: AdjacentArticle | null;
 };

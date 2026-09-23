@@ -51,9 +51,13 @@ export const getArticle = cache(async (section: string, slug: string): Promise<A
     return undefined;
   }
 
-  const _articles = doc.categories.flatMap((category) => category.articles);
+  const _articles = doc.categories.flatMap((category) =>
+    category.articles.map((article) => ({ ...article, categoryTitle: category.title })),
+  );
   const index = _articles.findIndex((article) => article.slug === slug);
   const article = _articles[index];
+  const prevArticle = _articles[index - 1];
+  const nextArticle = _articles[index + 1];
 
   return {
     doc: {
@@ -63,7 +67,19 @@ export const getArticle = cache(async (section: string, slug: string): Promise<A
       glyph: doc.glyph,
     },
     article: article,
-    prev: _articles[index - 1] ?? null,
-    next: _articles[index + 1] ?? null,
+    prev: prevArticle
+      ? {
+          title: prevArticle.title,
+          slug: prevArticle.slug,
+          category: prevArticle.categoryTitle,
+        }
+      : null,
+    next: nextArticle
+      ? {
+          title: nextArticle.title,
+          slug: nextArticle.slug,
+          category: nextArticle.categoryTitle,
+        }
+      : null,
   };
 });
