@@ -4,6 +4,7 @@ import { formatDate } from '@/lib/date';
 import type { RenderedMarkdown } from '@/lib/markdown';
 import { Breadcrumbs } from '@/ui/components/Breadcrumbs';
 import { ArticleNavButton } from './ArticleNavButton';
+import { ArticleNavPlaceholder } from './ArticleNavPlaceholder';
 import { ArticleSidebar } from './ArticleSidebar';
 import { ArticleToc } from './ArticleToc';
 
@@ -49,7 +50,7 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
 
           <article className="article-prose" dangerouslySetInnerHTML={{ __html: html }} />
           <div className="grid gap-5 sm:grid-cols-2">
-            {prev && (
+            {prev ? (
               <ArticleNavButton
                 direction="prev"
                 label="Назад"
@@ -57,8 +58,10 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
                 subtitle={prev.category}
                 href={ROUTES.article(doc.name, prev.slug)}
               />
+            ) : (
+              <ArticleNavPlaceholder direction="prev" doc={doc} />
             )}
-            {next && (
+            {next ? (
               <ArticleNavButton
                 direction="next"
                 label="Дальше"
@@ -66,6 +69,8 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
                 subtitle={next.category}
                 href={ROUTES.article(doc.name, next.slug)}
               />
+            ) : (
+              <ArticleNavPlaceholder direction="next" doc={doc} />
             )}
           </div>
         </div>
