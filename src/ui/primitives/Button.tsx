@@ -7,6 +7,7 @@ import { Loader } from './Loader';
 
 export interface ButtonProps extends BaseButtonProps {
   variant?: 'primary' | 'outline';
+  size?: 's' | 'm';
   loading?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
@@ -19,8 +20,14 @@ const variantClasses = {
     'border border-zinc-300 bg-transparent text-zinc-600 hover:bg-zinc-100 hover:text-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200',
 } as const;
 
+const sizeClasses = {
+  s: 'text-foreground px-2 py-1',
+  m: ' text-sm px-4 py-2',
+} as const;
+
 export function Button({
   variant = 'primary',
+  size = 'm',
   loading = false,
   disabled,
   startIcon,
@@ -34,8 +41,9 @@ export function Button({
       disabled={disabled || loading}
       aria-busy={loading || undefined}
       className={cn(
-        'inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:pointer-events-none disabled:opacity-50',
+        'inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:pointer-events-none disabled:opacity-50',
         variantClasses[variant],
+        sizeClasses[size],
         className,
       )}
       {...rest}

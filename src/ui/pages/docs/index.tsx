@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ROUTES } from '@/config/routes';
 import type { Doc } from '@/features/docs';
 import { DocCard } from '@/ui/components/DocCard';
+import { Button } from '@/ui/primitives';
 
 export function DocsPage({ docs }: { docs: Doc[] }) {
   return (
@@ -22,12 +23,9 @@ export function DocsPage({ docs }: { docs: Doc[] }) {
             </div>
             <div className="flex shrink-0 items-center gap-4 pb-1.5 font-mono text-xs text-zinc-500 dark:text-zinc-500">
               <span>{docs.length} / раздела</span>
-              <Link
-                href={ROUTES.newDoc}
-                className="hover:text-foreground rounded-md border border-zinc-300 px-2 py-1 transition-colors hover:border-zinc-500 dark:border-zinc-700 dark:hover:border-zinc-500"
-              >
+              <Button variant="outline" size="s" nativeButton={false} render={<Link href={ROUTES.newDoc} />}>
                 + статья
-              </Link>
+              </Button>
             </div>
           </div>
         </header>

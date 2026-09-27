@@ -49,6 +49,7 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
           </div>
 
           <article className="article-prose" dangerouslySetInnerHTML={{ __html: html }} />
+
           <div className="grid gap-5 sm:grid-cols-2">
             {prev ? (
               <ArticleNavButton
