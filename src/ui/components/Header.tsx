@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import { ROUTES } from '@/config/routes';
+import { Logo } from './Logo';
 
 export const Header = () => {
   return (
     <header className="bg-background/80 sticky top-0 z-10 border-b border-zinc-200/60 backdrop-blur-sm dark:border-zinc-800/60">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-8 py-4">
-        <Link href={ROUTES.main} className="flex items-center gap-2 font-semibold tracking-tight">
-          <span aria-hidden className="font-mono text-sm text-zinc-500 dark:text-zinc-400">
-            ◇
-          </span>
+        <Link href={ROUTES.main} className="flex items-center gap-2.5 font-semibold tracking-tight">
+          <Logo size={22} />
           Code Lore
         </Link>
         <ul className="flex gap-6 text-sm text-zinc-600 dark:text-zinc-400">
