@@ -6,10 +6,11 @@ import '@milkdown/crepe/theme/common/style.css';
 import '@milkdown/crepe/theme/frame.css';
 
 type MarkdownEditorProps = {
+  defaultValue?: string;
   onChange: (value: string) => void;
 };
 
-export function MarkdownEditor({ onChange }: MarkdownEditorProps) {
+export function MarkdownEditor({ defaultValue = '', onChange }: MarkdownEditorProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export function MarkdownEditor({ onChange }: MarkdownEditorProps) {
 
     const crepe = new Crepe({
       root,
-      defaultValue: '',
+      defaultValue,
       features: { [Crepe.Feature.TopBar]: true },
       featureConfigs: {
         [Crepe.Feature.Placeholder]: { text: 'Начните писать текст', mode: 'block' },
@@ -40,7 +41,7 @@ export function MarkdownEditor({ onChange }: MarkdownEditorProps) {
       disposed = true;
       crepe.destroy().catch(() => {});
     };
-  }, [onChange]);
+  }, [defaultValue, onChange]);
 
   return <div ref={rootRef} />;
 }

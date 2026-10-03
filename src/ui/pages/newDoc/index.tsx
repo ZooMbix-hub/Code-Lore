@@ -17,14 +17,9 @@ export function NewDocPage({ docs }: { docs: Doc[] }) {
       <div className="flex min-w-0 flex-col gap-8">
         <Breadcrumbs items={[{ label: '~/docs', href: ROUTES.docs }, { label: 'new' }]} />
 
-        <div className="flex flex-col gap-3">
-          <h1 className="text-foreground bg-linear-to-rbg-clip-text text-4xl font-bold tracking-tight">
-            Новая статья
-          </h1>
-          <p className="text-foreground text-lg">
-            Заполните карточку файла — текст сохранится в Markdown и появится в каталоге.
-          </p>
-        </div>
+        <h1 className="text-foreground bg-linear-to-rbg-clip-text text-4xl font-bold tracking-tight">
+          Новая статья
+        </h1>
 
         <CreateDocForm sections={sections} />
       </div>

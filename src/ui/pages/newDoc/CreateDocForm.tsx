@@ -4,14 +4,18 @@ import { useActionState, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { createArticleAction, type CreateArticleSectionOption } from '@/features/create-article';
 import { slugify } from '@/lib/slugify';
+import { FormWindow } from '@/ui/components/FormWindow';
 import { Button, Dialog, Field, Input, Select, type SelectOption } from '@/ui/primitives';
 import { CreateSectionForm } from './CreateSectionForm';
 import { CreateCategoryForm } from './CreateCategoryForm';
 
-const MarkdownEditor = dynamic(() => import('./MarkdownEditor').then((mod) => mod.MarkdownEditor), {
-  ssr: false,
-  loading: () => <div className="h-64 animate-pulse bg-zinc-100 dark:bg-zinc-900" />,
-});
+const MarkdownEditor = dynamic(
+  () => import('@/ui/components/MarkdownEditor').then((mod) => mod.MarkdownEditor),
+  {
+    ssr: false,
+    loading: () => <div className="h-64 animate-pulse bg-zinc-100 dark:bg-zinc-900" />,
+  },
+);
 
 export function CreateDocForm({ sections }: { sections: CreateArticleSectionOption[] }) {
   const [{ errors }, formAction, isPending] = useActionState(createArticleAction, {
@@ -44,7 +48,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
   };
 
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-300 bg-zinc-50/50 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/50">
+    <FormWindow title={fileName}>
       <Dialog
         open={modalOpen}
         onOpenChange={closeModal}
@@ -56,18 +60,6 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
           <CreateSectionForm onCloseModal={closeModal} />
         )}
       </Dialog>
-
-      <div className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
-        <div aria-hidden className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-rose-400/80" />
-          <span className="size-2.5 rounded-full bg-amber-400/80" />
-          <span className="size-2.5 rounded-full bg-emerald-400/80" />
-        </div>
-        <span className="truncate font-mono text-xs text-zinc-600 dark:text-zinc-400">{fileName}</span>
-        <span className="ml-auto shrink-0 font-mono text-[11px] text-zinc-400 dark:text-zinc-600">
-          черновик
-        </span>
-      </div>
 
       <form action={formAction} className="flex flex-col gap-6 p-6">
         <div className="grid grid-cols-2 gap-6">
@@ -149,6 +141,6 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
           </Button>
         </div>
       </form>
-    </div>
+    </FormWindow>
   );
 }

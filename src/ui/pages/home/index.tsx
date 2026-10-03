@@ -18,7 +18,7 @@ export function HomePage({ docs }: { docs: Doc[] }) {
           <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             Документация по вебу{' '}
             <span className="bg-linear-to-r from-orange-600 via-sky-500 to-yellow-500 bg-clip-text text-transparent dark:from-orange-400 dark:via-sky-400 dark:to-yellow-300">
-              по личной редакции
+              в личной редакции
             </span>
           </h1>
           <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
