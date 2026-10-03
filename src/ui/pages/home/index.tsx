@@ -16,15 +16,14 @@ export function HomePage({ docs }: { docs: Doc[] }) {
       <main className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col items-center gap-20 px-8 py-20">
         <section className="flex flex-col items-center gap-6 text-center">
           <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-            Вся документация по вебу —{' '}
+            Документация по вебу{' '}
             <span className="bg-linear-to-r from-orange-600 via-sky-500 to-yellow-500 bg-clip-text text-transparent dark:from-orange-400 dark:via-sky-400 dark:to-yellow-300">
-              в одном месте
+              по личной редакции
             </span>
           </h1>
-          <p className="max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
-            Code Lore сделан для себя: собираю сюда документации по всему стеку веб-разработчика — от HTML и
-            JavaScript до TypeScript, React и сборщиков — чтобы всё было под рукой. И добавил практику: здесь
-            можно запускать скрипты и решать задачи по каждой теме.
+          <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+            Стек веб-разработки — от языка и алгоритмов до платформы и инструментов. По материалам из разных
+            источников, с возможностью запуска и слежения выполнения кода.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button

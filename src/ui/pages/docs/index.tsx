@@ -18,7 +18,7 @@ export function DocsPage({ docs }: { docs: Doc[] }) {
             <div className="flex flex-col gap-3">
               <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">Документации</h1>
               <p className="max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
-                Все разделы справочника Code Lore — от разметки до логики.
+                Все разделы справочника Code Lore
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-4 pb-1.5 font-mono text-xs text-zinc-500 dark:text-zinc-500">

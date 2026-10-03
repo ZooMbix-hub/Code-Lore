@@ -4,7 +4,6 @@ import { formatDate } from '@/lib/date';
 import type { RenderedMarkdown } from '@/lib/markdown';
 import { Breadcrumbs } from '@/ui/components/Breadcrumbs';
 import { ArticleNavButton } from './ArticleNavButton';
-import { ArticleNavPlaceholder } from './ArticleNavPlaceholder';
 import { ArticleSidebar } from './ArticleSidebar';
 import { ArticleToc } from './ArticleToc';
 
@@ -60,7 +59,12 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
                 href={ROUTES.article(doc.name, prev.slug)}
               />
             ) : (
-              <ArticleNavPlaceholder direction="prev" doc={doc} />
+              <ArticleNavButton
+                direction="prev"
+                label="Перейти в раздел"
+                title="Начало раздела"
+                href={ROUTES.section(doc.name)}
+              />
             )}
             {next ? (
               <ArticleNavButton
@@ -71,7 +75,12 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
                 href={ROUTES.article(doc.name, next.slug)}
               />
             ) : (
-              <ArticleNavPlaceholder direction="next" doc={doc} />
+              <ArticleNavButton
+                direction="next"
+                label="Перейти в раздел"
+                title="Конец раздела"
+                href={ROUTES.section(doc.name)}
+              />
             )}
           </div>
         </div>

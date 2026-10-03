@@ -2,17 +2,17 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { cn } from 'cn';
 
-export interface BreadcrumbsItem<H extends string = string> {
+export interface BreadcrumbsItem<T extends string = string> {
   label: string;
-  href?: Route<H>;
+  href?: Route<T>;
 }
 
-export interface BreadcrumbsProps<H extends string = string> {
-  items: BreadcrumbsItem<H>[];
+export interface BreadcrumbsProps<T extends string = string> {
+  items: BreadcrumbsItem<T>[];
   className?: string;
 }
 
-export const Breadcrumbs = <H extends string = string>({ items, className }: BreadcrumbsProps<H>) => {
+export const Breadcrumbs = <T extends string = string>({ items, className }: BreadcrumbsProps<T>) => {
   return (
     <nav aria-label="Хлебные крошки" className={cn('font-mono text-xs', className)}>
       <ol className="flex flex-wrap items-center gap-1.5">
