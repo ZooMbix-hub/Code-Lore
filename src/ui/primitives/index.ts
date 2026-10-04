@@ -1,4 +1,5 @@
 export { Button, type ButtonProps } from './Button';
+export { Collapsible, type CollapsibleProps } from './Collapsible';
 export { Dialog, type DialogProps } from './Dialog';
 export { Field, type FieldProps } from './Field';
 export { Loader, type LoaderProps } from './Loader';
