@@ -9,7 +9,10 @@ export function NewDocPage({ docs }: { docs: Doc[] }) {
     id,
     name,
     title,
-    categories: categories.map(({ id, title: categoryTitle }) => ({ id, title: categoryTitle })),
+    categories: categories.map(({ id: categoryId, title: categoryTitle }) => ({
+      id: categoryId,
+      title: categoryTitle,
+    })),
   }));
 
   return (

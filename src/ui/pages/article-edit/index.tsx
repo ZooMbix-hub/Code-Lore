@@ -15,7 +15,10 @@ export function ArticleEdit({ section, article, docs }: ArticleEditProps) {
     id,
     name,
     title,
-    categories: categories.map(({ id, title: categoryTitle }) => ({ id, title: categoryTitle })),
+    categories: categories.map(({ id: categoryId, title: categoryTitle }) => ({
+      id: categoryId,
+      title: categoryTitle,
+    })),
   }));
 
   const currentCategory = docs
