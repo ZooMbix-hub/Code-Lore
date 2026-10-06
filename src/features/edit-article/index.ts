@@ -1,0 +1,1 @@
+export { editArticleAction } from './actions';

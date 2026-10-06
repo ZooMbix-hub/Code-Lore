@@ -44,6 +44,8 @@ export function ArticleEdit({ section, article, docs }: ArticleEditProps) {
         <ArticleEditForm
           content={article.content}
           slug={article.slug}
+          id={article.id}
+          title={article.title}
           sectionName={section}
           categoryId={currentCategory ? String(currentCategory.id) : ''}
           sections={sections}
