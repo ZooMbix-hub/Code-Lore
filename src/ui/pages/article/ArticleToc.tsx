@@ -55,14 +55,16 @@ export const ArticleToc = ({ headings }: ArticleTocProps) => {
           <li
             key={id}
             className={cn(
-              'flex border-l border-zinc-200 dark:border-zinc-800',
-              id === activeId && 'border-zinc-200 dark:border-zinc-200',
+              'flex border-l border-zinc-200 transition-colors dark:border-zinc-800',
+              id === activeId
+                ? 'border-zinc-200 dark:border-zinc-200'
+                : 'hover:border-zinc-400 dark:hover:border-zinc-600',
             )}
           >
             <a
               href={`#${id}`}
               className={cn(
-                'text-zinc-60 py-1.5 text-sm dark:text-zinc-400',
+                'block w-full py-1.5 text-sm text-zinc-60 transition-colors hover:text-foreground dark:text-zinc-400',
                 id === activeId && 'font-semibold dark:text-zinc-100',
               )}
               style={{ paddingLeft: depth * 12 }}

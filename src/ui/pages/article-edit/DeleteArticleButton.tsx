@@ -22,7 +22,7 @@ export const DeleteArticleButton = ({ articleId, articleName, sectionName }: Del
       </Button>
       <Dialog open={open} onOpenChange={setOpen} title={'Удаление статьи'}>
         <form action={formAction} className="flex flex-col gap-y-4">
-          <span className="tracking-tight text-zinc-400 dark:text-zinc-500">{`Статья ${articleName} будет удалена вместе с содержимым без возможности восстановления`}</span>
+          <span className="tracking-tight text-zinc-400 dark:text-zinc-500">{`Статья "${articleName}" будет удалена вместе с содержимым без возможности восстановления`}</span>
           {state.errors.form && (
             <span className="text-sm text-red-600 dark:text-red-400">{state.errors.form}</span>
           )}

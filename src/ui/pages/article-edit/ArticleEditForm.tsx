@@ -1,6 +1,8 @@
 'use client';
 
 import { useActionState, useState } from 'react';
+import Link from 'next/link';
+import { ROUTES } from '@/config/routes';
 import type { CreateArticleSectionOption } from '@/features/create-article';
 import { editArticleAction } from '@/features/edit-article';
 import { FormWindow } from '@/ui/components/FormWindow';
@@ -87,7 +89,13 @@ export function ArticleEditForm({
                 ✓ сохранено
               </span>
             )}
-            <Button variant="outline">{'Отменить'}</Button>
+            <Button
+              variant="outline"
+              nativeButton={false}
+              render={<Link href={ROUTES.article(sectionName, slug)} />}
+            >
+              {'Отменить'}
+            </Button>
             <Button type="submit" loading={isPending}>
               {'Сохранить'}
             </Button>

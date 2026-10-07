@@ -35,10 +35,10 @@ export const ArticleSidebar = ({ doc, currentArticle }: ArticleSidebarProps) => 
                   <Link
                     href={ROUTES.article(name, article.slug)}
                     className={cn(
-                      'flex py-1.5 pl-3 text-sm',
+                      'flex rounded-md py-1.5 pl-3 text-sm transition-colors hover:bg-zinc-100/70 dark:hover:bg-zinc-800/40',
                       article.slug === currentArticle
                         ? `font-medium ${styles.text}`
-                        : 'text-zinc-60 dark:text-zinc-400',
+                        : 'text-zinc-60 hover:text-foreground dark:text-zinc-400',
                     )}
                   >
                     {article.title}
