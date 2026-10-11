@@ -1,17 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getDocs, getArticle } from '@/features/docs';
+import { getArticle } from '@/features/docs';
 import { renderMarkdown } from '@/lib/markdown';
 import { ArticlePage } from '@/ui/pages/article';
-
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
-  const docs = await getDocs();
-  return docs.flatMap(({ name, categories }) =>
-    categories.flatMap(({ articles }) => articles.map(({ slug }) => ({ section: name, article: slug }))),
-  );
-}
 
 export async function generateMetadata({ params }: PageProps<Path>): Promise<Metadata> {
   const { section, article } = await params;

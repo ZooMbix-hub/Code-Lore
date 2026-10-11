@@ -21,7 +21,7 @@ interface ArticleEditFormProps {
 }
 
 export function ArticleEditForm({
-  content,
+  content: initialContent,
   slug: initialSlug,
   id,
   title,
@@ -31,6 +31,7 @@ export function ArticleEditForm({
 }: ArticleEditFormProps) {
   const editArticleWithId = editArticleAction.bind(null, id);
   const [response, formAction, isPending] = useActionState(editArticleWithId, {});
+  const [content, setContent] = useState(initialContent);
   const [categoryId, setCategoryId] = useState(initialCategoryId);
   const [slug, setSlug] = useState(initialSlug);
 
@@ -75,7 +76,7 @@ export function ArticleEditForm({
         <input type="hidden" name="slug" value={slug} />
         <input type="hidden" name="content" value={content} />
         <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto rounded-lg border border-zinc-300 dark:border-zinc-700">
-          <MarkdownEditor defaultValue={content} onChange={() => null} />
+          <MarkdownEditor defaultValue={initialContent} onChange={setContent} />
         </div>
 
         <div className="flex items-center justify-between gap-4 border-t border-zinc-200 pt-4 dark:border-zinc-800">
