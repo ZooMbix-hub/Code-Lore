@@ -22,30 +22,48 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
     errors: {},
   });
 
-  const [sectionName, setSectionName] = useState(sections[0].name);
+  const [sectionName, setSectionName] = useState(sections[0]?.name ?? '');
   const [categoryId, setCategoryId] = useState('');
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [content, setContent] = useState('');
   const [modalView, setModalView] = useState<'section' | 'category'>('section');
   const [modalOpen, setModalOpen] = useState(false);
-
-  const sectionsOptions: SelectOption[] = [
-    ...sections.map((section) => ({ value: section.name, label: section.title })),
-    { value: 'CREATE_NEW', label: '+ Новая секция', variant: 'action' },
-  ];
-  const currentSection = sections.find(({ name }) => name === sectionName)!;
-  const categories = currentSection.categories;
-  const categoriesOptions: SelectOption[] = [
-    ...categories.map((category) => ({ value: String(category.id), label: category.title })),
-    { value: 'CREATE_NEW', label: '+ Новая категория', variant: 'action' },
-  ];
-  const fileName = `${slugify(slug || title) || 'new-article'}.md`;
   const closeModal = () => setModalOpen(false);
   const openModal = (view: 'section' | 'category') => {
     setModalView(view);
     setModalOpen(true);
   };
+
+  if (sections.length === 0) {
+    return (
+      <FormWindow title="new-article.md">
+        <Dialog open={modalOpen} onOpenChange={closeModal} title="Добавление секции">
+          <CreateSectionForm onCloseModal={closeModal} />
+        </Dialog>
+        <div className="flex flex-col gap-4 p-6">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            В базе ещё нет секций — создайте первую, чтобы публиковать статьи.
+          </p>
+          <Button onClick={() => setModalOpen(true)} className="w-fit">
+            + Создать секцию
+          </Button>
+        </div>
+      </FormWindow>
+    );
+  }
+
+  const sectionsOptions: SelectOption[] = [
+    ...sections.map((section) => ({ value: section.name, label: section.title })),
+    { value: 'CREATE_NEW', label: '+ Новая секция', variant: 'action' },
+  ];
+  const currentSection = sections.find(({ name }) => name === sectionName) ?? sections[0];
+  const categories = currentSection?.categories ?? [];
+  const categoriesOptions: SelectOption[] = [
+    ...categories.map((category) => ({ value: String(category.id), label: category.title })),
+    { value: 'CREATE_NEW', label: '+ Новая категория', variant: 'action' },
+  ];
+  const fileName = `${slugify(slug || title) || 'new-article'}.md`;
 
   return (
     <FormWindow title={fileName}>
@@ -55,7 +73,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
         title={modalView === 'category' ? 'Добавление категории' : 'Добавление секции'}
       >
         {modalView === 'category' ? (
-          <CreateCategoryForm onCloseModal={closeModal} sectionId={currentSection.id} />
+          currentSection && <CreateCategoryForm onCloseModal={closeModal} sectionId={currentSection.id} />
         ) : (
           <CreateSectionForm onCloseModal={closeModal} />
         )}
