@@ -12,7 +12,7 @@ export const DocCard = ({ doc }: { doc: Doc }) => {
       href={ROUTES.section(name)}
       className={`group flex min-h-44 flex-col gap-3 rounded-2xl border border-zinc-300 bg-zinc-50/50 p-6 backdrop-blur transition-all hover:-translate-y-1 dark:border-zinc-800 dark:bg-zinc-900/50 ${styles.border}`}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-start gap-3">
         <span className={`rounded-md border px-2 py-0.5 font-mono text-sm font-semibold ${styles.glyph}`}>
           {glyph}
         </span>

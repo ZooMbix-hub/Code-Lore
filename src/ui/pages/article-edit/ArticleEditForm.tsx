@@ -24,7 +24,7 @@ export function ArticleEditForm({
   content: initialContent,
   slug: initialSlug,
   id,
-  title,
+  title: initialTitle,
   sectionName,
   categoryId: initialCategoryId,
   sections,
@@ -34,6 +34,7 @@ export function ArticleEditForm({
   const [content, setContent] = useState(initialContent);
   const [categoryId, setCategoryId] = useState(initialCategoryId);
   const [slug, setSlug] = useState(initialSlug);
+  const [title, setTitle] = useState(initialTitle);
 
   const currentSection = sections.find(({ name }) => name === sectionName);
   const categoriesOptions: SelectOption[] = (currentSection?.categories ?? []).map((category) => ({
@@ -41,7 +42,7 @@ export function ArticleEditForm({
     label: category.title,
   }));
   const currentCategory = currentSection?.categories.find((category) => String(category.id) === categoryId);
-  const summary = [sectionName, currentCategory?.title, slug].filter(Boolean).join(' / ');
+  const summary = [currentCategory?.title, title, slug].filter(Boolean).join(' / ');
 
   return (
     <FormWindow title={`${initialSlug}.md`}>
@@ -56,6 +57,18 @@ export function ArticleEditForm({
                 onChange={setCategoryId}
                 options={categoriesOptions}
               />
+            </Field>
+
+            <Field label="Заголовок">
+              {(control) => (
+                <Input
+                  {...control}
+                  type="text"
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
+                  className="font-mono"
+                />
+              )}
             </Field>
 
             <Field label="Slug">
@@ -73,8 +86,10 @@ export function ArticleEditForm({
         </Collapsible>
 
         <input type="hidden" name="categoryId" value={categoryId} />
+        <input type="hidden" name="title" value={title} />
         <input type="hidden" name="slug" value={slug} />
         <input type="hidden" name="content" value={content} />
+
         <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto rounded-lg border border-zinc-300 dark:border-zinc-700">
           <MarkdownEditor defaultValue={initialContent} onChange={setContent} />
         </div>

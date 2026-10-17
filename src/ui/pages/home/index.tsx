@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Doc } from '@/features/docs';
 import { ROUTES } from '@/config/routes';
+import { pluralize } from '@/lib/plural';
 import { Button } from '@/ui/primitives';
 import { DocCard } from '../../components/DocCard';
 import { AllDocsCard } from '../../components/AllDocsCard';
@@ -34,26 +35,17 @@ export function HomePage({ docs }: { docs: Doc[] }) {
             >
               Открыть документацию
             </Button>
-            <Button
-              variant="outline"
-              nativeButton={false}
-              className="px-5 py-2.5"
-              endIcon="→"
-              render={<Link href={ROUTES.section('html')} />}
-            >
-              Начать с HTML
-            </Button>
           </div>
         </section>
         <section className="flex w-full flex-col gap-6">
           <div className="flex items-end justify-between">
             <h2 className="text-2xl font-semibold tracking-tight">Документации</h2>
             <span className="font-mono text-xs text-zinc-500 dark:text-zinc-500">
-              {docs.length} / раздела
+              {docs.length} / {pluralize(docs.length, { one: 'раздел', few: 'раздела', many: 'разделов' })}
             </span>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {docs.slice(0, 4).map((doc) => (
+            {docs.slice(0, 5).map((doc) => (
               <DocCard key={doc.name} doc={doc} />
             ))}
             <AllDocsCard />
