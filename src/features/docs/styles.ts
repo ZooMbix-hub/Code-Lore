@@ -40,6 +40,22 @@ const SECTION_STYLES: Record<string, SectionStyles> = {
     text: 'text-yellow-700 dark:text-yellow-300',
     title: 'from-yellow-600 to-amber-300 dark:from-yellow-400 dark:to-amber-300',
   },
+  ts: {
+    glyph:
+      'border-blue-600/25 bg-blue-500/10 text-blue-700 dark:border-blue-400/25 dark:bg-blue-400/10 dark:text-blue-300',
+    border: 'hover:border-blue-600/40 dark:hover:border-blue-400/40',
+    link: 'group-hover:text-blue-700 dark:group-hover:text-blue-300',
+    text: 'text-blue-700 dark:text-blue-300',
+    title: 'from-blue-600 to-indigo-400 dark:from-blue-400 dark:to-indigo-300',
+  },
+  react: {
+    glyph:
+      'border-cyan-600/25 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/25 dark:bg-cyan-400/10 dark:text-cyan-300',
+    border: 'hover:border-cyan-600/40 dark:hover:border-cyan-400/40',
+    link: 'group-hover:text-cyan-700 dark:group-hover:text-cyan-300',
+    text: 'text-cyan-700 dark:text-cyan-300',
+    title: 'from-cyan-600 to-teal-400 dark:from-cyan-400 dark:to-teal-300',
+  },
 };
 
 export const getSectionStyles = (name: string): SectionStyles => SECTION_STYLES[name] ?? DEFAULT_STYLES;

@@ -3,6 +3,7 @@ import { ROUTES } from '@/config/routes';
 import type { Doc } from '@/features/docs';
 import { DocCard } from '@/ui/components/DocCard';
 import { Button } from '@/ui/primitives';
+import { pluralize } from '@/lib/plural';
 
 export function DocsPage({ docs }: { docs: Doc[] }) {
   return (
@@ -22,7 +23,9 @@ export function DocsPage({ docs }: { docs: Doc[] }) {
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-4 pb-1.5 font-mono text-xs text-zinc-500 dark:text-zinc-500">
-              <span>{docs.length} / раздела</span>
+              <span>
+                {docs.length} / {pluralize(docs.length, { one: 'раздел', few: 'раздела', many: 'разделов' })}
+              </span>
               <Button variant="outline" size="s" nativeButton={false} render={<Link href={ROUTES.newDoc} />}>
                 + статья
               </Button>

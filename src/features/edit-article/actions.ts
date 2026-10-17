@@ -1,10 +1,10 @@
 'use server';
 
+import { eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 import { db } from '@/db/client';
 import { articles } from '@/db/schema';
 import type { CreateArticleFormState } from './types';
-import { eq } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
 
 export async function editArticleAction(
   articleId: number,
@@ -12,6 +12,7 @@ export async function editArticleAction(
   formData: FormData,
 ): Promise<CreateArticleFormState | undefined> {
   const categoryId = formData.get('categoryId');
+  const title = formData.get('title');
   const slug = formData.get('slug');
   const content = formData.get('content');
 
@@ -22,6 +23,7 @@ export async function editArticleAction(
       .update(articles)
       .set({
         categoryId: Number(categoryId),
+        title: String(title),
         slug: String(slug),
         content: String(content),
       })
