@@ -1,7 +1,7 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ArticleEdit } from '@/ui/pages/article-edit';
 import { getArticle, getDocs } from '@/features/docs';
+import { ArticleEdit } from '@/ui/pages/article-edit';
 
 export async function generateMetadata({ params }: PageProps<Path>): Promise<Metadata> {
   const { section, article } = await params;
