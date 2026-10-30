@@ -85,7 +85,7 @@ export function MarkdownEditor({ defaultValue = '', onChange }: MarkdownEditorPr
             aria-selected={tab === value}
             onClick={() => switchTab(value)}
             className={cn(
-              'cursor-pointer rounded-md px-3 py-1 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-zinc-400',
+              'cursor-pointer rounded-md px-3 py-1 text-sm font-medium transition outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 active:scale-95',
               tab === value
                 ? 'bg-zinc-200 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-100'
                 : 'text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200',
