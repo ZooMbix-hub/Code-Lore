@@ -15,9 +15,7 @@ export function SectionPage({ doc }: { doc: Doc }) {
 
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
-              <h1
-                className={`bg-linear-to-r bg-clip-text text-5xl font-bold tracking-tight text-balance text-transparent sm:text-6xl ${styles.title}`}
-              >
+              <h1 className={`text-5xl font-bold tracking-tight text-balance sm:text-6xl ${styles.title}`}>
                 {title}
               </h1>
             </div>

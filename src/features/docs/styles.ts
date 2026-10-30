@@ -12,7 +12,7 @@ const DEFAULT_STYLES: SectionStyles = {
   border: 'hover:border-zinc-600/40 dark:hover:border-zinc-400/40',
   link: 'group-hover:text-zinc-700 dark:group-hover:text-zinc-300',
   text: 'text-zinc-700 dark:text-zinc-300',
-  title: 'from-zinc-600 to-zinc-400 dark:from-zinc-400 dark:to-zinc-300',
+  title: 'text-zinc-700 dark:text-zinc-300',
 };
 
 const SECTION_STYLES: Record<string, SectionStyles> = {
@@ -22,7 +22,7 @@ const SECTION_STYLES: Record<string, SectionStyles> = {
     border: 'hover:border-orange-600/40 dark:hover:border-orange-400/40',
     link: 'group-hover:text-orange-700 dark:group-hover:text-orange-300',
     text: 'text-orange-700 dark:text-orange-300',
-    title: 'from-orange-600 to-amber-400 dark:from-orange-400 dark:to-amber-300',
+    title: 'text-orange-700 dark:text-orange-300',
   },
   css: {
     glyph:
@@ -30,7 +30,7 @@ const SECTION_STYLES: Record<string, SectionStyles> = {
     border: 'hover:border-sky-600/40 dark:hover:border-sky-400/40',
     link: 'group-hover:text-sky-700 dark:group-hover:text-sky-300',
     text: 'text-sky-700 dark:text-sky-300',
-    title: 'from-sky-600 to-cyan-400 dark:from-sky-400 dark:to-cyan-300',
+    title: 'text-sky-700 dark:text-sky-300',
   },
   js: {
     glyph:
@@ -38,7 +38,7 @@ const SECTION_STYLES: Record<string, SectionStyles> = {
     border: 'hover:border-yellow-600/40 dark:hover:border-yellow-400/40',
     link: 'group-hover:text-yellow-700 dark:group-hover:text-yellow-300',
     text: 'text-yellow-700 dark:text-yellow-300',
-    title: 'from-yellow-600 to-amber-300 dark:from-yellow-400 dark:to-amber-300',
+    title: 'text-yellow-700 dark:text-yellow-300',
   },
   ts: {
     glyph:
@@ -46,7 +46,7 @@ const SECTION_STYLES: Record<string, SectionStyles> = {
     border: 'hover:border-blue-600/40 dark:hover:border-blue-400/40',
     link: 'group-hover:text-blue-700 dark:group-hover:text-blue-300',
     text: 'text-blue-700 dark:text-blue-300',
-    title: 'from-blue-600 to-indigo-400 dark:from-blue-400 dark:to-indigo-300',
+    title: 'text-blue-700 dark:text-blue-300',
   },
   react: {
     glyph:
@@ -54,7 +54,7 @@ const SECTION_STYLES: Record<string, SectionStyles> = {
     border: 'hover:border-cyan-600/40 dark:hover:border-cyan-400/40',
     link: 'group-hover:text-cyan-700 dark:group-hover:text-cyan-300',
     text: 'text-cyan-700 dark:text-cyan-300',
-    title: 'from-cyan-600 to-teal-400 dark:from-cyan-400 dark:to-teal-300',
+    title: 'text-cyan-700 dark:text-cyan-300',
   },
 };
 
