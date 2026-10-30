@@ -37,10 +37,6 @@ export function ArticleEdit({ section, article, docs }: ArticleEditProps) {
           ]}
         />
 
-        <h1 className="text-foreground bg-linear-to-rbg-clip-text text-4xl font-bold tracking-tight">
-          Редактирование статьи
-        </h1>
-
         <ArticleEditForm
           content={article.content}
           slug={article.slug}

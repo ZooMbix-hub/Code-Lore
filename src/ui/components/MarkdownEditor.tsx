@@ -71,11 +71,11 @@ export function MarkdownEditor({ defaultValue = '', onChange }: MarkdownEditorPr
   }, [defaultValue, onChange, rootRef, latestValueRef]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <div
         role="tablist"
         aria-label="Режим просмотра"
-        className="sticky top-0 z-10 flex gap-1 border-b border-zinc-200 bg-zinc-50 px-3 py-2 dark:border-zinc-800 dark:bg-zinc-900"
+        className="flex shrink-0 gap-1 border-b border-zinc-200 bg-zinc-50 px-3 py-2 dark:border-zinc-800 dark:bg-zinc-900"
       >
         {TABS.map(({ value, label }) => (
           <button
@@ -96,21 +96,23 @@ export function MarkdownEditor({ defaultValue = '', onChange }: MarkdownEditorPr
         ))}
       </div>
 
-      <div ref={rootRef} className={cn(tab !== 'editor' && 'hidden')} />
+      <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto">
+        <div ref={rootRef} className={cn(tab !== 'editor' && 'hidden')} />
 
-      {tab === 'preview' && (
-        <div className="min-h-72 p-6">
-          {isRendering ? (
-            <div className="h-64 animate-pulse rounded-lg bg-zinc-100 dark:bg-zinc-900" />
-          ) : html ? (
-            <article className="article-prose" dangerouslySetInnerHTML={{ __html: html }} />
-          ) : (
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              {'Текст пустой — вернитесь в редактор и напишите статью.'}
-            </p>
-          )}
-        </div>
-      )}
+        {tab === 'preview' && (
+          <div className="min-h-72 p-6">
+            {isRendering ? (
+              <div className="h-64 animate-pulse rounded-lg bg-zinc-100 dark:bg-zinc-900" />
+            ) : html ? (
+              <article className="article-prose" dangerouslySetInnerHTML={{ __html: html }} />
+            ) : (
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                {'Текст пустой — вернитесь в редактор и напишите статью.'}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

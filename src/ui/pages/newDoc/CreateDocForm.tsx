@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { createArticleAction, type CreateArticleSectionOption } from '@/features/create-article';
 import { slugify } from '@/lib/slugify';
 import { FormWindow } from '@/ui/components/FormWindow';
-import { Button, Dialog, Field, Input, Select, type SelectOption } from '@/ui/primitives';
+import { Button, Collapsible, Dialog, Field, Input, Select, type SelectOption } from '@/ui/primitives';
 import { CreateSectionForm } from './CreateSectionForm';
 import { CreateCategoryForm } from './CreateCategoryForm';
 
@@ -29,6 +29,7 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
   const [content, setContent] = useState('');
   const [modalView, setModalView] = useState<'section' | 'category'>('section');
   const [modalOpen, setModalOpen] = useState(false);
+  const [metaOpen, setMetaOpen] = useState(false);
   const closeModal = () => setModalOpen(false);
   const openModal = (view: 'section' | 'category') => {
     setModalView(view);
@@ -64,6 +65,9 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
     { value: 'CREATE_NEW', label: '+ Новая категория', variant: 'action' },
   ];
   const fileName = `${slugify(slug || title) || 'new-article'}.md`;
+  const currentCategory = categories.find(({ id }) => String(id) === categoryId);
+  const summary = [currentSection?.title, currentCategory?.title, title, slug].filter(Boolean).join(' / ');
+  const hasMetaErrors = Boolean(errors.section || errors.categoryId || errors.title || errors.slug);
 
   return (
     <FormWindow title={fileName}>
@@ -80,74 +84,79 @@ export function CreateDocForm({ sections }: { sections: CreateArticleSectionOpti
       </Dialog>
 
       <form action={formAction} className="flex flex-col gap-6 p-6">
-        <div className="grid grid-cols-2 gap-6">
-          <Field label="Секция" error={errors.section}>
-            <Select
-              name="section"
-              label="Секция"
-              value={sectionName}
-              onChange={(next) => {
-                if (next === 'CREATE_NEW') {
-                  openModal('section');
-                } else {
-                  setSectionName(next);
-                  setCategoryId('');
-                }
-              }}
-              options={sectionsOptions}
-            />
-          </Field>
-
-          <Field label="Категория" error={errors.categoryId}>
-            <Select
-              name="categoryId"
-              label="Категория"
-              placeholder="Выберите категорию"
-              value={categoryId}
-              onChange={(next) => {
-                if (next === 'CREATE_NEW') {
-                  openModal('category');
-                } else {
-                  setCategoryId(next);
-                }
-              }}
-              options={categoriesOptions}
-            />
-          </Field>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2">
-          <Field label="Заголовок" error={errors.title}>
-            {(control) => (
-              <Input
-                {...control}
-                type="text"
-                name="title"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-                placeholder="Например: Как работает flexbox"
+        <Collapsible
+          title="Настройки статьи"
+          summary={summary}
+          open={metaOpen || hasMetaErrors}
+          onOpenChange={setMetaOpen}
+        >
+          <div className="grid gap-6 sm:grid-cols-2">
+            <Field label="Секция" error={errors.section}>
+              <Select
+                name="section"
+                label="Секция"
+                value={sectionName}
+                onChange={(next) => {
+                  if (next === 'CREATE_NEW') {
+                    openModal('section');
+                  } else {
+                    setSectionName(next);
+                    setCategoryId('');
+                  }
+                }}
+                options={sectionsOptions}
               />
-            )}
-          </Field>
+            </Field>
 
-          <Field label="Slug" error={errors.slug}>
-            {(control) => (
-              <Input
-                {...control}
-                type="text"
-                name="slug"
-                value={slug}
-                onChange={(event) => setSlug(event.target.value)}
-                placeholder="kak-rabotaet-flexbox"
-                className="font-mono"
+            <Field label="Категория" error={errors.categoryId}>
+              <Select
+                name="categoryId"
+                label="Категория"
+                placeholder="Выберите категорию"
+                value={categoryId}
+                onChange={(next) => {
+                  if (next === 'CREATE_NEW') {
+                    openModal('category');
+                  } else {
+                    setCategoryId(next);
+                  }
+                }}
+                options={categoriesOptions}
               />
-            )}
-          </Field>
-        </div>
+            </Field>
+
+            <Field label="Заголовок" error={errors.title}>
+              {(control) => (
+                <Input
+                  {...control}
+                  type="text"
+                  name="title"
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
+                  placeholder="Например: Как работает flexbox"
+                />
+              )}
+            </Field>
+
+            <Field label="Slug" error={errors.slug}>
+              {(control) => (
+                <Input
+                  {...control}
+                  type="text"
+                  name="slug"
+                  value={slug}
+                  onChange={(event) => setSlug(event.target.value)}
+                  placeholder="kak-rabotaet-flexbox"
+                  className="font-mono"
+                />
+              )}
+            </Field>
+          </div>
+        </Collapsible>
 
         <Field label="Текст · Markdown" error={errors.content}>
           <input type="hidden" name="content" value={content} />
-          <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto rounded-lg border border-zinc-300 dark:border-zinc-700">
+          <div className="flex max-h-[60vh] flex-col overflow-hidden rounded-lg border border-zinc-300 dark:border-zinc-700">
             <MarkdownEditor onChange={setContent} />
           </div>
         </Field>

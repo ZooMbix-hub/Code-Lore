@@ -8,12 +8,16 @@ export interface CollapsibleProps {
   title: string;
   summary?: string;
   defaultOpen?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function Collapsible({ children, title, summary, defaultOpen }: CollapsibleProps) {
+export function Collapsible({ children, title, summary, defaultOpen, open, onOpenChange }: CollapsibleProps) {
   return (
     <BaseCollapsible.Root
       defaultOpen={defaultOpen}
+      open={open}
+      onOpenChange={onOpenChange}
       className="rounded-lg border border-zinc-300 dark:border-zinc-700"
     >
       <BaseCollapsible.Trigger className="group flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-left transition-colors hover:bg-zinc-100/70 focus-visible:outline-none dark:hover:bg-zinc-800/40">

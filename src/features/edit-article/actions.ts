@@ -2,6 +2,8 @@
 
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { ROUTES } from '@/config/routes';
 import { db } from '@/db/client';
 import { articles } from '@/db/schema';
 import type { CreateArticleFormState } from './types';
@@ -12,6 +14,7 @@ export async function editArticleAction(
   formData: FormData,
 ): Promise<CreateArticleFormState | undefined> {
   const categoryId = formData.get('categoryId');
+  const section = formData.get('section');
   const title = formData.get('title');
   const slug = formData.get('slug');
   const content = formData.get('content');
@@ -39,5 +42,5 @@ export async function editArticleAction(
 
   revalidatePath('/', 'layout');
 
-  return { success: true };
+  redirect(ROUTES.article(String(section), updated.slug));
 }

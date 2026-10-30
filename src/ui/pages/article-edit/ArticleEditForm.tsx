@@ -85,12 +85,13 @@ export function ArticleEditForm({
           </div>
         </Collapsible>
 
+        <input type="hidden" name="section" value={sectionName} />
         <input type="hidden" name="categoryId" value={categoryId} />
         <input type="hidden" name="title" value={title} />
         <input type="hidden" name="slug" value={slug} />
         <input type="hidden" name="content" value={content} />
 
-        <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto rounded-lg border border-zinc-300 dark:border-zinc-700">
+        <div className="flex max-h-[60vh] flex-col overflow-hidden rounded-lg border border-zinc-300 dark:border-zinc-700">
           <MarkdownEditor defaultValue={initialContent} onChange={setContent} />
         </div>
 
@@ -99,11 +100,6 @@ export function ArticleEditForm({
           <div className="flex items-center gap-x-2">
             {response?.error && (
               <span className="text-sm text-red-600 dark:text-red-400">{response.error}</span>
-            )}
-            {response?.success && (
-              <span aria-live="polite" className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
-                ✓ сохранено
-              </span>
             )}
             <Button
               variant="outline"
