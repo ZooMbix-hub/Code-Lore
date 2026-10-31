@@ -13,7 +13,7 @@ export const ArticleSidebar = ({ doc, currentArticle }: ArticleSidebarProps) => 
   const styles = getSectionStyles(name);
 
   return (
-    <aside className="sticky top-14.25 h-[calc(100dvh-57px)] w-64 border-r border-zinc-200/60 py-8 pr-6 lg:block dark:border-zinc-800/60">
+    <aside className="sticky top-14.25 hidden h-[calc(100dvh-57px)] w-64 border-r border-zinc-200/60 py-8 pr-6 lg:block dark:border-zinc-800/60">
       <div className="flex items-center gap-2.5 pb-6">
         <span className={`rounded-md border px-1.5 py-0.5 font-mono text-xs font-semibold ${styles.glyph}`}>
           {glyph}

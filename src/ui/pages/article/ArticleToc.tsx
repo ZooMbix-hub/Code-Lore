@@ -49,7 +49,7 @@ export const ArticleToc = ({ headings }: ArticleTocProps) => {
   }, [_headings]);
 
   return (
-    <nav className="sticky top-14.25 h-[calc(100dvh-57px)] w-64 py-8">
+    <nav className="sticky top-14.25 hidden h-[calc(100dvh-57px)] w-64 py-8 xl:block">
       <ul className="flex flex-col">
         {_headings.map(({ id, text, depth }) => (
           <li

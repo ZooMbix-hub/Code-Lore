@@ -24,10 +24,10 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
   const { html, headings } = content;
 
   return (
-    <div className="flex w-full flex-1 justify-center gap-8 px-20">
+    <div className="flex w-full flex-1 justify-center gap-8 px-4 sm:px-10 lg:px-20">
       <ArticleSidebar doc={doc} currentArticle={article.slug} />
 
-      <main className="min-w-0 flex-1 py-10">
+      <main className="min-w-0 flex-1 py-6 sm:py-10">
         <div className="mx-auto flex max-w-3xl min-w-0 flex-col gap-6">
           <Breadcrumbs
             items={[
@@ -38,7 +38,9 @@ export function ArticlePage({ view, content }: ArticlePageProps) {
           />
 
           <div className="flex flex-col gap-4">
-            <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">{article.title}</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+              {article.title}
+            </h1>
             <div className="flex justify-end gap-x-4 border-t border-zinc-200 pt-4 font-mono text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
               <span>~{getReadingTime(article.content)} мин чтения</span>
               <div>
