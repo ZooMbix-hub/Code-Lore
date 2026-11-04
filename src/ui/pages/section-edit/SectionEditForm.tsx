@@ -28,7 +28,7 @@ export function SectionEditForm({ section, glyph, title, docId, description }: S
       action={formAction}
       className="flex flex-col gap-4 overflow-hidden rounded-xl border border-zinc-300 bg-zinc-50/50 p-4 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/50"
     >
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid gap-3 md:grid-cols-3">
         <Field label="Название" error={errors?.sectionName}>
           {(control) => (
             <Input

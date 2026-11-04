@@ -48,7 +48,7 @@ export function ArticleEditForm({
     <FormWindow title={`${initialSlug}.md`}>
       <form action={formAction} className="flex flex-col gap-6 p-6">
         <Collapsible title="Настройки статьи" summary={summary}>
-          <div className="grid gap-6 sm:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             <Field label="Категория">
               <Select
                 label="Категория"
