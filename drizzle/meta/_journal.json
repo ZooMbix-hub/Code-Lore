@@ -29,6 +29,13 @@
       "when": 1789927391411,
       "tag": "0003_rare_mojo",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794065976313,
+      "tag": "0004_neat_luckman",
+      "breakpoints": true
     }
   ]
 }

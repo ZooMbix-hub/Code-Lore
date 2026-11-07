@@ -1,4 +1,6 @@
-import { integer, pgTable, serial, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core';
+import { integer, pgEnum, pgTable, serial, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
+
+export const userRoleEnum = pgEnum('user_role', ['super-admin', 'admin', 'writer', 'reader']);
 
 export const sections = pgTable('sections', {
   id: serial('id').primaryKey(),
@@ -37,6 +39,17 @@ export const articles = pgTable(
   (table) => [uniqueIndex('articles_category_slug_key').on(table.categoryId, table.slug)],
 );
 
+export const users = pgTable('users', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  login: text('login').notNull().unique(),
+  name: text('name').notNull(),
+  password: text('password').notNull(),
+  role: userRoleEnum('role').notNull().default('reader'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
+});
+
 export type SectionRow = typeof sections.$inferSelect;
 export type CategoryRow = typeof categories.$inferSelect;
 export type ArticleRow = typeof articles.$inferSelect;
+export type UserRow = typeof users.$inferSelect;

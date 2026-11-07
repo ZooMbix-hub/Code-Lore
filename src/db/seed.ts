@@ -1,5 +1,6 @@
+import { hash } from '@node-rs/argon2';
 import { db } from './client';
-import { articles, categories, sections } from './schema';
+import { articles, categories, sections, type userRoleEnum, users } from './schema';
 
 type SeedArticle = { slug: string; title: string; content?: string };
 type SeedCategory = { title: string; articles: SeedArticle[] };
@@ -10,8 +11,14 @@ type SeedSection = {
   description: string;
   categories: SeedCategory[];
 };
+type SeedUser = {
+  name: string;
+  login: string;
+  password: string;
+  role: (typeof userRoleEnum.enumValues)[number];
+};
 
-const SEED: SeedSection[] = [
+const DOCS_SEED: SeedSection[] = [
   {
     name: 'html',
     title: 'HTML',
@@ -286,15 +293,43 @@ const SEED: SeedSection[] = [
   },
 ];
 
+const USERS_SEED: SeedUser[] = [
+  {
+    name: 'User_SuperAdmin',
+    login: 'super-admin',
+    password: 'qwerty1337',
+    role: 'super-admin',
+  },
+  {
+    name: 'User_Admin',
+    login: 'admin',
+    password: 'qwerty1337',
+    role: 'admin',
+  },
+  {
+    name: 'User_Writer',
+    login: 'writer',
+    password: 'qwerty1337',
+    role: 'writer',
+  },
+  {
+    name: 'User_Reader',
+    login: 'reader',
+    password: 'qwerty1337',
+    role: 'reader',
+  },
+];
+
 async function seed() {
   await db.transaction(async (tx) => {
     await tx.delete(articles);
     await tx.delete(categories);
     await tx.delete(sections);
+    await tx.delete(users);
 
     let articleCount = 0;
 
-    for (const [sectionPosition, section] of SEED.entries()) {
+    for (const [sectionPosition, section] of DOCS_SEED.entries()) {
       const [insertedSection] = await tx
         .insert(sections)
         .values({
@@ -328,8 +363,19 @@ async function seed() {
       }
     }
 
+    for (const item of USERS_SEED) {
+      await tx.insert(users).values({
+        login: item.login,
+        name: item.name,
+        password: await hash(item.password),
+        role: item.role,
+      });
+    }
+
     // oxlint-disable-next-line no-console
-    console.log(`Сид завершён: ${SEED.length} секций, ${articleCount} статей.`);
+    console.log(
+      `Сид завершён: ${DOCS_SEED.length} секций, ${articleCount} статей, ${USERS_SEED.length} пользователей.`,
+    );
   });
 }
 
