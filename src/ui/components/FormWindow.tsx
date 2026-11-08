@@ -19,7 +19,6 @@ export function FormWindow({ children, title }: FormWindowProps) {
           черновик
         </span>
       </div>
-
       {children}
     </div>
   );
