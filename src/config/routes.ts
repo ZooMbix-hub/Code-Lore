@@ -1,5 +1,6 @@
 export const ROUTES = {
   main: '/',
+  login: '/login',
   docs: '/docs',
   newDoc: '/docs/new',
   section: (section: string) => `/docs/${section}` as const,
