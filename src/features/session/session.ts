@@ -3,7 +3,7 @@ import { and, eq, isNull } from 'drizzle-orm';
 import { cookies } from 'next/headers';
 import { db } from '@/db/client';
 import { users, type userRoleEnum } from '@/db/schema';
-import { redis } from '@/redis/client';
+import { SESSION_TTL_SEC, sessionStore } from './storage';
 
 interface SessionUser {
   id: string;
@@ -12,20 +12,14 @@ interface SessionUser {
 }
 
 const SESSION_COOKIE = 'session';
-const SESSION_TTL_SEC = 30 * 24 * 60 * 60;
 
-function sessionKey(token: string): string {
-  return `session:${createHash('sha256').update(token).digest('hex')}`;
-}
-
-async function dropSession(key: string): Promise<null> {
-  await redis.del(key);
-  return null;
+function tokenHash(token: string): string {
+  return createHash('sha256').update(token).digest('hex');
 }
 
 export async function createSession(userId: string): Promise<void> {
   const token = randomBytes(32).toString('base64url');
-  await redis.set(sessionKey(token), JSON.stringify({ userId }), 'EX', SESSION_TTL_SEC);
+  await sessionStore.set(tokenHash(token), userId);
 
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE, token, {
@@ -43,23 +37,10 @@ export async function getSession(): Promise<SessionUser | null> {
 
   if (!token) return null;
 
-  const key = sessionKey(token);
+  const hash = tokenHash(token);
 
-  let userId: string | undefined;
-
-  try {
-    const raw = await redis.get(key);
-
-    if (!raw) return null;
-
-    userId = (JSON.parse(raw) as { userId?: string }).userId;
-  } catch {
-    return dropSession(key);
-  }
-
-  if (!userId) {
-    return dropSession(key);
-  }
+  const userId = await sessionStore.get(hash);
+  if (!userId) return null;
 
   const [user] = await db
     .select({ id: users.id, name: users.name, role: users.role })
@@ -67,8 +48,20 @@ export async function getSession(): Promise<SessionUser | null> {
     .where(and(eq(users.id, userId), isNull(users.deletedAt)));
 
   if (!user) {
-    return dropSession(key);
+    await sessionStore.del(hash);
+    return null;
   }
 
   return user;
+}
+
+export async function destroySession(): Promise<void> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(SESSION_COOKIE)?.value;
+
+  if (token) {
+    await sessionStore.del(tokenHash(token));
+  }
+
+  cookieStore.delete(SESSION_COOKIE);
 }

@@ -36,6 +36,13 @@
       "when": 1794065976313,
       "tag": "0004_neat_luckman",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794507630369,
+      "tag": "0005_serious_boomerang",
+      "breakpoints": true
     }
   ]
 }
